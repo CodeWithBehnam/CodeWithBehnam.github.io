@@ -3,38 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Obstacle Avoidance Game</title>
+    <title>Enhanced 3D Obstacle Avoidance Game</title>
     <style>
-        /* Remove margins and hide overflow to make the game full-screen */
         body { margin: 0; overflow: hidden; }
-        /* Style for the score display */
-        #score { 
-            position: absolute; 
-            top: 10px; 
-            left: 10px; 
-            color: white; 
-            font-size: 24px; 
-        }
-        /* Style for the game-over screen */
-        #gameover { 
-            position: absolute; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            color: red; 
-            font-size: 48px; 
-            display: none; 
-        }
+        #score { position: absolute; top: 10px; left: 10px; color: white; font-size: 24px; }
+        #gameover { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: red; font-size: 48px; display: none; }
+        #minimap { position: absolute; top: 10px; right: 10px; width: 150px; height: 150px; border: 2px solid white; }
     </style>
 </head>
 <body>
-    <!-- Score display element -->
     <div id="score">Score: 0</div>
-    <!-- Game over message element -->
     <div id="gameover">Game Over! Press R to restart</div>
-    <!-- Include Three.js library from CDN -->
+    <div id="minimap"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <!-- Include our game script -->
     <script src="script.js"></script>
 </body>
 </html>
