@@ -6,20 +6,25 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 // Gradient background
-scene.background = new THREE.Color(0x1a0d2b); // Deep purple base
+scene.background = new THREE.Color(0x1a0d2b);
 
-// Crystal orb
-const geometry = new THREE.IcosahedronGeometry(1, 1); // Faceted shape
+// Group to hold orb and particles for unified rotation
+const group = new THREE.Group();
+scene.add(group);
+
+// Crystal orb with dynamic geometry
+let isIcosahedron = true;
+const icosahedronGeometry = new THREE.IcosahedronGeometry(1, 1);
+const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
 const material = new THREE.MeshPhongMaterial({
     color: 0x00ccff,
     emissive: 0x004466,
     shininess: 100,
     transparent: true,
-    opacity: 0.9,
-    wireframe: false
+    opacity: 0.9
 });
-const orb = new THREE.Mesh(geometry, material);
-scene.add(orb);
+const orb = new THREE.Mesh(icosahedronGeometry, material);
+group.add(orb);
 
 // Particle aura
 const particleCount = 200;
@@ -46,7 +51,7 @@ const particleMaterial = new THREE.PointsMaterial({
     blending: THREE.AdditiveBlending
 });
 const particleSystem = new THREE.Points(particles, particleMaterial);
-scene.add(particleSystem);
+group.add(particleSystem);
 
 // Lighting
 const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
@@ -58,11 +63,39 @@ scene.add(pointLight);
 // Camera position
 camera.position.z = 5;
 
-// Mouse interaction
+// Mouse interaction variables
 let mouseX = 0, mouseY = 0;
+let isDragging = false;
+let previousMouseX = 0, previousMouseY = 0;
+
+// Mouse events
 document.addEventListener('mousemove', (event) => {
     mouseX = (event.clientX / window.innerWidth) * 2 - 1;
     mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    if (isDragging) {
+        const deltaX = event.clientX - previousMouseX;
+        const deltaY = event.clientY - previousMouseY;
+        group.rotation.y += deltaX * 0.005;
+        group.rotation.x += deltaY * 0.005;
+        previousMouseX = event.clientX;
+        previousMouseY = event.clientY;
+    }
+});
+
+document.addEventListener('mousedown', (event) => {
+    isDragging = true;
+    previousMouseX = event.clientX;
+    previousMouseY = event.clientY;
+});
+
+document.addEventListener('mouseup', () => {
+    isDragging = false;
+});
+
+document.addEventListener('click', () => {
+    // Toggle orb shape
+    isIcosahedron = !isIcosahedron;
+    orb.geometry = isIcosahedron ? icosahedronGeometry : sphereGeometry;
 });
 
 // Animation loop
@@ -71,10 +104,8 @@ function animate() {
     requestAnimationFrame(animate);
     time += 0.02;
 
-    // Orb pulsation and rotation
+    // Orb pulsation (auto-rotation is now manual via drag)
     orb.scale.set(1 + Math.sin(time) * 0.1, 1 + Math.sin(time) * 0.1, 1 + Math.sin(time) * 0.1);
-    orb.rotation.x += 0.01;
-    orb.rotation.y += 0.01;
 
     // Particle movement
     const positions = particleSystem.geometry.attributes.position.array;
