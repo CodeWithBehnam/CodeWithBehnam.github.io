@@ -1,138 +1,149 @@
 // Scene setup
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(0, 5, -5); // Position camera above and behind the player
+camera.lookAt(0, 0, 0); // Point camera at the origin
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Gradient background
-scene.background = new THREE.Color(0x1a0d2b);
-
-// Group to hold orb and particles for unified rotation
-const group = new THREE.Group();
-scene.add(group);
-
-// Crystal orb with dynamic geometry
-let isIcosahedron = true;
-const icosahedronGeometry = new THREE.IcosahedronGeometry(1, 1);
-const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
-const material = new THREE.MeshPhongMaterial({
-    color: 0x00ccff,
-    emissive: 0x004466,
-    shininess: 100,
-    transparent: true,
-    opacity: 0.9
-});
-const orb = new THREE.Mesh(icosahedronGeometry, material);
-group.add(orb);
-
-// Particle aura
-const particleCount = 200;
-const particles = new THREE.BufferGeometry();
-const positions = new Float32Array(particleCount * 3);
-const velocities = new Float32Array(particleCount * 3);
-for (let i = 0; i < particleCount * 3; i += 3) {
-    const radius = 2 + Math.random() * 2;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.random() * Math.PI;
-    positions[i] = radius * Math.sin(phi) * Math.cos(theta);
-    positions[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
-    positions[i + 2] = radius * Math.cos(phi);
-    velocities[i] = (Math.random() - 0.5) * 0.02;
-    velocities[i + 1] = (Math.random() - 0.5) * 0.02;
-    velocities[i + 2] = (Math.random() - 0.5) * 0.02;
-}
-particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-const particleMaterial = new THREE.PointsMaterial({
-    color: 0x66ffff,
-    size: 0.05,
-    transparent: true,
-    opacity: 0.7,
-    blending: THREE.AdditiveBlending
-});
-const particleSystem = new THREE.Points(particles, particleMaterial);
-group.add(particleSystem);
-
 // Lighting
-const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // White directional light
+directionalLight.position.set(1, 1, 1); // Position light above and to the right
+scene.add(directionalLight);
+const ambientLight = new THREE.AmbientLight(0x404040); // Soft ambient light
 scene.add(ambientLight);
-const pointLight = new THREE.PointLight(0xffffff, 1, 100);
-pointLight.position.set(5, 5, 5);
-scene.add(pointLight);
 
-// Camera position
-camera.position.z = 5;
+// Ground
+const groundGeometry = new THREE.PlaneGeometry(100, 100); // Large flat plane
+const groundMaterial = new THREE.MeshBasicMaterial({ color: 0x222222 }); // Dark gray color
+const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+ground.rotation.x = -Math.PI / 2; // Rotate to lie flat
+scene.add(ground);
 
-// Mouse interaction variables
-let mouseX = 0, mouseY = 0;
-let isDragging = false;
-let previousMouseX = 0, previousMouseY = 0;
+// Player
+const playerGeometry = new THREE.SphereGeometry(0.5, 32, 32); // Sphere with radius 0.5
+const playerMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 }); // Green material
+const player = new THREE.Mesh(playerGeometry, playerMaterial);
+player.position.y = 0.5; // Position slightly above ground
+scene.add(player);
 
-// Mouse events
-document.addEventListener('mousemove', (event) => {
-    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-    mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-    if (isDragging) {
-        const deltaX = event.clientX - previousMouseX;
-        const deltaY = event.clientY - previousMouseY;
-        group.rotation.y += deltaX * 0.005;
-        group.rotation.x += deltaY * 0.005;
-        previousMouseX = event.clientX;
-        previousMouseY = event.clientY;
+// Obstacles
+const obstacles = [];
+const obstacleGeometry = new THREE.BoxGeometry(1, 1, 1); // 1x1x1 cube
+const obstacleMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 }); // Red material
+for (let i = 0; i < 10; i++) {
+    const obstacle = new THREE.Mesh(obstacleGeometry, obstacleMaterial);
+    // Randomly position obstacles along x-axis and far ahead on z-axis
+    obstacle.position.set((Math.random() - 0.5) * 10, 0.5, -20 - Math.random() * 20);
+    scene.add(obstacle);
+    obstacles.push(obstacle);
+}
+
+// Particle System (trail effect)
+const particleCount = 100;
+const particleGeometry = new THREE.BufferGeometry();
+const particlePositions = new Float32Array(particleCount * 3); // x, y, z for each particle
+const particleVelocities = new Float32Array(particleCount * 3); // Velocity for each particle
+const particleLifetimes = new Float32Array(particleCount); // Lifetime for each particle
+for (let i = 0; i < particleCount; i++) {
+    // Start particles at player's position
+    particlePositions[i * 3] = player.position.x;
+    particlePositions[i * 3 + 1] = player.position.y;
+    particlePositions[i * 3 + 2] = player.position.z;
+    // Random small velocities for spread
+    particleVelocities[i * 3] = (Math.random() - 0.5) * 0.1;
+    particleVelocities[i * 3 + 1] = (Math.random() - 0.5) * 0.1;
+    particleVelocities[i * 3 + 2] = (Math.random() - 0.5) * 0.1;
+    particleLifetimes[i] = 0; // Initial lifetime
+}
+particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+const particleMaterial = new THREE.PointsMaterial({ 
+    color: 0x00ff00, // Green particles
+    size: 0.1, 
+    transparent: true, 
+    opacity: 0.5 
+});
+const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+scene.add(particleSystem);
+
+// Game state
+let isGameOver = false;
+let score = 0;
+const scoreElement = document.getElementById('score');
+const gameOverElement = document.getElementById('gameover');
+const keys = { left: false, right: false }; // Track key states
+
+// Input handling
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') keys.left = true;
+    else if (event.key === 'ArrowRight') keys.right = true;
+    else if (event.key === 'r' && isGameOver) {
+        // Restart game
+        isGameOver = false;
+        score = 0;
+        player.position.x = 0; // Reset player position
+        obstacles.forEach(obstacle => {
+            // Reset obstacles to random positions
+            obstacle.position.set((Math.random() - 0.5) * 10, 0.5, -20 - Math.random() * 20);
+        });
+        gameOverElement.style.display = 'none'; // Hide game over message
+        scoreElement.textContent = `Score: ${score}`; // Reset score display
     }
 });
-
-document.addEventListener('mousedown', (event) => {
-    isDragging = true;
-    previousMouseX = event.clientX;
-    previousMouseY = event.clientY;
-});
-
-document.addEventListener('mouseup', () => {
-    isDragging = false;
-});
-
-document.addEventListener('click', () => {
-    // Toggle orb shape
-    isIcosahedron = !isIcosahedron;
-    orb.geometry = isIcosahedron ? icosahedronGeometry : sphereGeometry;
+document.addEventListener('keyup', (event) => {
+    if (event.key === 'ArrowLeft') keys.left = false;
+    else if (event.key === 'ArrowRight') keys.right = false;
 });
 
 // Animation loop
-let time = 0;
 function animate() {
     requestAnimationFrame(animate);
-    time += 0.02;
+    if (!isGameOver) {
+        // Move player within bounds (-5 to 5 on x-axis)
+        if (keys.left && player.position.x > -5) player.position.x -= 0.05;
+        if (keys.right && player.position.x < 5) player.position.x += 0.05;
 
-    // Orb pulsation (auto-rotation is now manual via drag)
-    orb.scale.set(1 + Math.sin(time) * 0.1, 1 + Math.sin(time) * 0.1, 1 + Math.sin(time) * 0.1);
+        // Move obstacles towards player
+        obstacles.forEach(obstacle => {
+            obstacle.position.z += 0.1; // Move forward
+            if (obstacle.position.z > 5) {
+                // Reset obstacle position when it passes player
+                obstacle.position.set((Math.random() - 0.5) * 10, 0.5, -20 - Math.random() * 20);
+                score++; // Increment score
+                scoreElement.textContent = `Score: ${score}`; // Update score display
+            }
+            // Simple collision detection
+            if (Math.abs(player.position.x - obstacle.position.x) < 1 && Math.abs(obstacle.position.z) < 1) {
+                isGameOver = true;
+                gameOverElement.style.display = 'block'; // Show game over message
+            }
+        });
 
-    // Particle movement
-    const positions = particleSystem.geometry.attributes.position.array;
-    for (let i = 0; i < particleCount * 3; i += 3) {
-        positions[i] += velocities[i] + mouseX * 0.01;
-        positions[i + 1] += velocities[i + 1] + mouseY * 0.01;
-        positions[i + 2] += velocities[i + 2];
-        const dist = Math.sqrt(positions[i] ** 2 + positions[i + 1] ** 2 + positions[i + 2] ** 2);
-        if (dist > 4 || dist < 1.5) {
-            velocities[i] *= -0.5;
-            velocities[i + 1] *= -0.5;
-            velocities[i + 2] *= -0.5;
+        // Update particle system
+        for (let i = 0; i < particleCount; i++) {
+            if (particleLifetimes[i] > 0) {
+                // Move particle based on velocity
+                particlePositions[i * 3] += particleVelocities[i * 3];
+                particlePositions[i * 3 + 1] += particleVelocities[i * 3 + 1];
+                particlePositions[i * 3 + 2] += particleVelocities[i * 3 + 2];
+                particleLifetimes[i] -= 0.01; // Decrease lifetime
+                if (particleLifetimes[i] <= 0) {
+                    // Reset particle to player's position when lifetime expires
+                    particlePositions[i * 3] = player.position.x;
+                    particlePositions[i * 3 + 1] = player.position.y;
+                    particlePositions[i * 3 + 2] = player.position.z;
+                }
+            } else {
+                // Respawn particle with new velocity
+                particleLifetimes[i] = 1;
+                particleVelocities[i * 3] = (Math.random() - 0.5) * 0.1;
+                particleVelocities[i * 3 + 1] = (Math.random() - 0.5) * 0.1;
+                particleVelocities[i * 3 + 2] = (Math.random() - 0.5) * 0.1;
+            }
         }
+        particleGeometry.attributes.position.needsUpdate = true; // Update particle positions
     }
-    particleSystem.geometry.attributes.position.needsUpdate = true;
-
-    // Light follows mouse
-    pointLight.position.x = mouseX * 10;
-    pointLight.position.y = mouseY * 10;
-
-    renderer.render(scene, camera);
+    renderer.render(scene, camera); // Render the scene
 }
-animate();
-
-// Resize handler
-window.addEventListener('resize', () => {
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-});
+animate(); // Start the animation loop
