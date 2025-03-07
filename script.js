@@ -7,7 +7,8 @@ document.body.appendChild(renderer.domElement);
 
 // Cube geometry and material
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshPhongMaterial({ color: 0x00ff00, emissive: 0x111111, shininess: 100 });
+const texture = new THREE.TextureLoader().load('https://picsum.photos/200'); // Any image URL
+const material = new THREE.MeshPhongMaterial({ map: texture, emissive: 0x111111, shininess: 100 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
