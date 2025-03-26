@@ -1,0 +1,17 @@
+- title: Three.js Interactive Cube
+  description: An interactive 3D cube built with Three.js, featuring texture mapping, lighting, and mouse controls.
+  image: /assets/images/projects/threejs-cube.jpg
+  url: /projects/threejs-cube/
+  tags:
+    - Three.js
+    - JavaScript
+    - 3D Graphics
+
+- title: Data Analysis Dashboard
+  description: A responsive dashboard built with D3.js for visualizing complex datasets.
+  image: /assets/images/projects/data-dashboard.jpg
+  url: /projects/data-dashboard/
+  tags:
+    - D3.js
+    - Data Visualization
+    - JavaScript 
