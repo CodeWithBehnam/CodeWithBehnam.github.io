@@ -829,7 +829,7 @@ blockquote {
 }
 
 blockquote::before {
-    content: """;
+    content: "\201C";
     font-family: Georgia, serif;
     font-size: 4rem;
     position: absolute;
