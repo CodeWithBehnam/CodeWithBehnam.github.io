@@ -1,0 +1,149 @@
+---
+layout: page
+title: Three.js Interactive Cube
+---
+<div class="project-description">
+    <p>This is an interactive 3D cube built with Three.js. Move your mouse across the screen to see the cube change colors and rotate.</p>
+    <p>The cube responds to your mouse position, affecting both its color and the position of the light source in the scene.</p>
+</div>
+
+<div id="cube-container" class="threejs-container">
+    <!-- Three.js will render here -->
+</div>
+
+<div class="project-details">
+    <h2>How It Works</h2>
+    <p>This project demonstrates the use of Three.js to create an interactive 3D experience. Here are some of the key features:</p>
+    
+    <ul>
+        <li>Creates a 3D cube with a texture</li>
+        <li>Adds ambient and point lighting for better visual effects</li>
+        <li>Implements responsive mouse interaction</li>
+        <li>Changes the cube's color based on mouse position</li>
+        <li>Updates the light position for dynamic shadows</li>
+    </ul>
+    
+    <h2>Technologies Used</h2>
+    <div class="technologies">
+        <span class="tech-tag">Three.js</span>
+        <span class="tech-tag">JavaScript</span>
+        <span class="tech-tag">HTML5</span>
+        <span class="tech-tag">CSS3</span>
+    </div>
+</div>
+
+<style>
+    .project-description {
+        max-width: 800px;
+        margin: 0 auto 2rem;
+        text-align: center;
+        font-size: 1.1rem;
+    }
+    
+    .threejs-container {
+        width: 100%;
+        height: 500px;
+        margin-bottom: 2rem;
+        background-color: #000;
+    }
+    
+    .project-details {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .project-details h2 {
+        margin-top: 2rem;
+    }
+    
+    .project-details ul {
+        margin-bottom: 2rem;
+    }
+    
+    .technologies {
+        margin: 1.5rem 0;
+    }
+    
+    .tech-tag {
+        display: inline-block;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+        .threejs-container {
+            height: 400px;
+        }
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Scene setup
+        const scene = new THREE.Scene();
+        const container = document.getElementById('cube-container');
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        // Cube geometry and material
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        const texture = new THREE.TextureLoader().load('https://picsum.photos/200'); // Random image as texture
+        const material = new THREE.MeshPhongMaterial({ map: texture, emissive: 0x111111, shininess: 100 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x404040); // Soft base light
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0xffffff, 1, 100); // Bright point light
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+
+        // Position camera
+        camera.position.z = 5;
+
+        // Mouse interaction
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1; // Normalized -1 to 1
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate cube
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+
+            // Update color based on mouse
+            const r = Math.abs(mouseX) * 255;
+            const g = Math.abs(mouseY) * 255;
+            const b = 100;
+            material.color.setRGB(r / 255, g / 255, b / 255);
+
+            // Move light with mouse
+            pointLight.position.x = mouseX * 10;
+            pointLight.position.y = mouseY * 10;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+    });
+</script>

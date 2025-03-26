@@ -1,0 +1,240 @@
+/* Main CSS for Code With Behnam */
+
+/* Base */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --text-color: #333;
+    --light-gray: #f8f9fa;
+    --medium-gray: #e9ecef;
+    --dark-gray: #6c757d;
+    --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-family-mono: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family-sans);
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: white;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #2980b9;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    color: var(--secondary-color);
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+    margin-bottom: 1.5rem;
+}
+
+/* Header */
+.site-header {
+    padding: 1.5rem 0;
+    background-color: white;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.site-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.site-title a {
+    color: var(--secondary-color);
+}
+
+.site-nav ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.site-nav li {
+    margin-right: 1.5rem;
+}
+
+.site-nav a {
+    color: var(--dark-gray);
+    font-weight: 500;
+}
+
+.site-nav a.active,
+.site-nav a:hover {
+    color: var(--primary-color);
+}
+
+/* Main Content */
+.site-content {
+    padding: 3rem 0;
+}
+
+/* Posts */
+.post {
+    margin-bottom: 3rem;
+}
+
+.post-title {
+    margin-bottom: 0.5rem;
+}
+
+.post-meta {
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.post-content {
+    margin-bottom: 2rem;
+}
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+}
+
+.post-content pre {
+    background-color: var(--light-gray);
+    padding: 1rem;
+    border-radius: 4px;
+    overflow: auto;
+    font-family: var(--font-family-mono);
+    margin-bottom: 1.5rem;
+}
+
+.post-content code {
+    font-family: var(--font-family-mono);
+    background-color: var(--light-gray);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+}
+
+.post-content blockquote {
+    border-left: 4px solid var(--primary-color);
+    padding-left: 1rem;
+    font-style: italic;
+    color: var(--dark-gray);
+    margin: 1.5rem 0;
+}
+
+.post-tags {
+    margin-bottom: 2rem;
+}
+
+.post-tags a {
+    display: inline-block;
+    background-color: var(--light-gray);
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--medium-gray);
+    padding-top: 1.5rem;
+}
+
+/* Post List */
+.post-list {
+    list-style: none;
+}
+
+.post-list-item {
+    margin-bottom: 2.5rem;
+}
+
+.post-list-title {
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-list-excerpt {
+    margin-bottom: 1rem;
+}
+
+.read-more {
+    font-weight: 500;
+}
+
+/* Footer */
+.site-footer {
+    padding: 2rem 0;
+    border-top: 1px solid var(--medium-gray);
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    font-size: 0.9rem;
+}
+
+.social-links {
+    margin-top: 1rem;
+}
+
+.social-links a {
+    margin-right: 1rem;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--medium-gray);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .site-nav ul {
+        flex-direction: column;
+    }
+    
+    .site-nav li {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+    
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.5rem; }
+    h4 { font-size: 1.25rem; }
+    h5 { font-size: 1.1rem; }
+    h6 { font-size: 1rem; }
+} 
