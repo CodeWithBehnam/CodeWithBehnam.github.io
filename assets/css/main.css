@@ -10,7 +10,7 @@
     --bg-color: #ffffff;
     --bg-secondary: #f8fafc;
     --bg-accent: #eef2ff;
-    --border-color: #e2e8f0;
+    --border-color: #e0e0e0;
     --success-color: #10b981;
     --warning-color: #f59e0b;
     --error-color: #ef4444;
@@ -23,6 +23,7 @@
     --heading-color: #2b2d42;
     --code-bg: #2b2d42;
     --bg-light: var(--bg-accent);
+    --primary-dark-color: #3a52c4;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -56,12 +57,12 @@ body {
 a {
     color: var(--primary-color);
     text-decoration: none;
-    transition: var(--transition);
+    transition: color 0.3s ease;
     font-weight: 500;
 }
 
 a:hover {
-    color: var(--accent-color);
+    color: var(--primary-dark-color);
 }
 
 /* Typography */
@@ -543,12 +544,13 @@ strong {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--box-shadow);
-    transition: var(--transition);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
 }
 
 .project-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
 .project-image {
@@ -612,7 +614,7 @@ strong {
         --bg-accent: #1e293b;
         --text-color: #e2e8f0;
         --text-light: #94a3b8;
-        --border-color: #334155;
+        --border-color: #444;
         --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
     }
 
@@ -1035,6 +1037,7 @@ button {
 
 .section-title {
     font-size: 2rem;
+    margin-top: 4rem;
     margin-bottom: 2rem;
     position: relative;
     padding-bottom: 0.75rem;
@@ -1070,12 +1073,13 @@ button {
     border-radius: var(--border-radius);
     padding: 1.5rem;
     box-shadow: var(--box-shadow);
-    transition: var(--transition);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
 }
 
 .post-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
 }
 
 .post-card-title {
@@ -1095,6 +1099,18 @@ button {
     line-height: 1.6;
 }
 
+.post-card .read-more {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+.post-card .read-more:hover {
+    color: var(--primary-dark-color);
+    text-decoration: underline;
+}
+
 .view-all {
     text-align: center;
     margin-top: 2rem;
@@ -1107,11 +1123,11 @@ button {
     color: white;
     border-radius: 30px;
     font-weight: 600;
-    transition: var(--transition);
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn:hover {
-    background-color: var(--accent-color);
+    background-color: var(--primary-dark-color);
     transform: translateY(-2px);
     color: white;
 }

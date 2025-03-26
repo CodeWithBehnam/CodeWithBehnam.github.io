@@ -37,6 +37,11 @@
                 menuToggle.classList.toggle('active');
             });
         }
+
+        // Initialize highlight.js after DOM is ready
+        if (typeof hljs !== 'undefined') {
+            hljs.highlightAll();
+        }
     });
 
     // Add smooth scrolling to anchor links
