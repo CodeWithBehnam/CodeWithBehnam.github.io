@@ -1,21 +1,51 @@
 theme: jekyll-theme-minimal
 title: Code With Behnam
-description: A personal blog where I share my knowledge and experiences
+description: A personal blog where I share my knowledge and experiences in programming, data science, and web development
 author: Behnam Ebrahimi
 baseurl: ""
 url: "https://CodeWithBehnam.github.io"
 github_username: CodeWithBehnam
 linkedin_username: behnamebrahimi
 
+# Site settings
+lang: en
+timezone: America/Los_Angeles
+
 # Build settings
 markdown: kramdown
+highlighter: rouge
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-paginate
+  - jekyll-sitemap
 
 paginate: 5
 paginate_path: "/blog/page:num/"
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
 
 # Exclude from processing
 exclude:
@@ -23,3 +53,5 @@ exclude:
   - Gemfile.lock
   - node_modules
   - vendor
+  - README.md
+  - LICENSE
