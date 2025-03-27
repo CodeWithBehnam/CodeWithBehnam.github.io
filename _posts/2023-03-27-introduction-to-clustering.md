@@ -6,6 +6,10 @@ categories: [Machine Learning, Data Analysis]
 tags: [clustering, k-means, hierarchical clustering, dbscan, unsupervised learning, python]
 ---
 
+
+![Introduction to Clustering: Unveiling Patterns in Unlabeled Data](https://assets.grok.com/users/0d67d12d-2882-4680-b0f0-32b2e70507f2/generated/4x6Zxcko94EYKi6b/image.jpg)
+
+
 Clustering is a fundamental technique in unsupervised machine learning that groups similar data points together based on their characteristics. Unlike supervised learning, clustering doesn't require labeled data, making it valuable for discovering hidden patterns and structures. In this post, I'll explore different clustering algorithms and demonstrate their implementation in Python.
 
 ## What is Clustering?

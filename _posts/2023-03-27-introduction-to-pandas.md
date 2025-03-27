@@ -6,6 +6,8 @@ categories: [Data Analysis, Python]
 tags: [pandas, python, data analysis, dataframes]
 ---
 
+![Introduction to Pandas: The Essential Data Analysis Library for Python](https://assets.grok.com/users/0d67d12d-2882-4680-b0f0-32b2e70507f2/generated/5sAWr52nDtAczGEJ/image.jpg)
+
 Pandas is one of the most powerful and widely used libraries for data manipulation and analysis in Python. If you're working with data in Python, knowing Pandas is essential. In this post, I'll introduce you to the basics of Pandas and show you how to get started.
 
 ## What is Pandas?
