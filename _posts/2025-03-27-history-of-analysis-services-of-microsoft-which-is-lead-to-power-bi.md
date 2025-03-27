@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "History of Analysis services of Microsoft which is lead to Power BI"
-date: 2023-10-19
+date: 2025-03-27
 categories: [History, Data Analysis, Business Intelligence]
 tags: [Microsoft, Analysis Services, Power BI, BI History]
 ---
