@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Understanding Hypothesis Testing: A Fundamental Tool in Statistics"
-date: 2023-04-01
+date: 2023-03-27
 categories: [Statistics, Data Analysis]
 tags: [hypothesis testing, p-value, statistical significance, t-test, chi-square test, ANOVA]
 ---

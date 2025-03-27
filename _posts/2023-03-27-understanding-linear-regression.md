@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Understanding Linear Regression: The Foundation of Predictive Modeling"
-date: 2023-03-29
+date: 2023-03-27
 categories: [Statistics, Machine Learning]
 tags: [linear regression, statistics, machine learning, python, scikit-learn]
 ---

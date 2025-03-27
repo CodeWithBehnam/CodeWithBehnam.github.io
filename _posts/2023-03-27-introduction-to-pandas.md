@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Introduction to Pandas: The Essential Data Analysis Library for Python"
-date: 2023-03-28
+date: 2023-03-27
 categories: [Data Analysis, Python]
 tags: [pandas, python, data analysis, dataframes]
 ---

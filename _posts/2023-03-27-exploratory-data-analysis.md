@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Exploratory Data Analysis: The Critical First Step in Any Data Science Project"
-date: 2023-03-30
+date: 2023-03-27
 categories: [Data Analysis, Statistics]
 tags: [eda, data visualization, data analysis, python, pandas]
 ---
