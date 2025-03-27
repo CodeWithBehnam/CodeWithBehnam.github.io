@@ -6,8 +6,6 @@ categories: [History, Data Analysis, Business Intelligence]
 tags: [Microsoft, Analysis Services, Power BI, BI History]
 ---
 
-# History of Analysis Services of Microsoft which is Lead to Power BI
-
 ## Introduction
 
 Welcome, dear readers, to a journey deep into the fascinating world of business intelligence and data analytics—a journey that traces the rich history of Microsoft's Analysis Services and reveals how this technology eventually gave rise to one of the most beloved tools in modern analytics: Power BI. Whether you're a seasoned data professional or just beginning to explore the realm of business intelligence, this story is sure to both enlighten and entertain you.
