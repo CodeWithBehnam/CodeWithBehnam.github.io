@@ -6,6 +6,8 @@ categories: [Statistics, Machine Learning]
 tags: [linear regression, statistics, machine learning, python, scikit-learn]
 ---
 
+![Understanding Linear Regression: The Foundation of Predictive Modeling](https://assets.grok.com/users/0d67d12d-2882-4680-b0f0-32b2e70507f2/generated/BaMiRwtJiLnAgCH4/image.jpg)
+
 Linear regression is one of the most fundamental and widely used algorithms in statistics and machine learning. Despite its simplicity, it forms the foundation for many more complex models and continues to be invaluable in various fields. In this post, I'll explain what linear regression is, how it works, and how to implement it in Python.
 
 ## What is Linear Regression?
