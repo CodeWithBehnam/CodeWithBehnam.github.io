@@ -6,7 +6,7 @@ categories: ["Business Intelligence", "Data Analysis"]
 tags: ["DAX", "MDX", "XMLA", "TSML", "TMDL", "Query Languages", "Data Modeling"]
 ---
 
-
+![Understanding Data Query Languages: Differences Between DAX, MDX, XMLA, TSML, and TMDL](https://assets.grok.com/users/0d67d12d-2882-4680-b0f0-32b2e70507f2/generated/YMQzuD5X4Cmvuxnq/image.jpg)
 
 In the ever-evolving landscape of data analysis and business intelligence, understanding the right language to query and manipulate data is crucial. If you've worked with Microsoft's BI ecosystem or other data platforms, you've likely encountered terms like DAX, MDX, XMLA, TSML, and TMDL. But what exactly are these languages, and how do they differ from one another?
 
