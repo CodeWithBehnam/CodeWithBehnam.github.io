@@ -270,6 +270,7 @@ TOPN(
 
 ### Common Transformations
 
+{% raw %}
 ```m
 // Remove columns
 Table.RemoveColumns(Source, {"Column1", "Column2"})
@@ -297,6 +298,8 @@ Table.Combine({Source1, Source2})
 
 // Group by
 Table.Group(Source, {"Category"}, {{"Total", each List.Sum([Amount]), type number}})
+```
+{% endraw %}
 
 // Pivot column
 Table.Pivot(Source, List.Distinct(Source[Category]), "Category", "Value")
