@@ -1,6 +1,6 @@
 # Theme Settings
 remote_theme: mmistakes/minimal-mistakes
-minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin: "air" # Clean, light theme with white background
 
 # Site Settings
 title: Code With Behnam
