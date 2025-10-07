@@ -1,53 +1,15 @@
 ---
-layout: default
-title: Home
+layout: home
+author_profile: true
+header:
+  overlay_color: "#667eea"
+  overlay_filter: "0.5"
+  overlay_image: /assets/images/header-bg.jpg
+  actions:
+    - label: "View All Posts"
+      url: "/blog/"
+excerpt: "A personal blog on programming, data science, and web development. Sharing knowledge and experiences in Python, Machine Learning, SQL, Power BI, and more."
 ---
-
-<div class="home-container">
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Welcome to Code With Behnam</h1>
-            <p class="hero-description">A personal blog on programming, data science, and web development</p>
-        </div>
-    </section>
-
-    <section class="featured-posts">
-        <h2 class="section-title">Latest Articles</h2>
-        <div class="post-grid">
-            {% for post in site.posts limit:3 %}
-            <div class="post-card">
-                <h3 class="post-card-title">
-                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                </h3>
-                <div class="post-card-meta">
-                    <span class="post-date"><i class="fas fa-calendar-alt"></i> {{ post.date | date: "%B %-d, %Y" }}</span>
-                </div>
-                <div class="post-card-excerpt">
-                    {{ post.excerpt | strip_html | truncatewords: 25 }}
-                </div>
-                <a href="{{ post.url | relative_url }}" class="read-more">Read more</a>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="view-all">
-            <a href="{{ '/blog/' | relative_url }}" class="btn">View All Posts</a>
-        </div>
-    </section>
-
-    <section class="featured-projects">
-        <h2 class="section-title">Featured Projects</h2>
-        <div class="project-grid">
-            {% for project in site.data.projects limit:2 %}
-            <div class="project-card">
-                {% if project.image %}
-                <img src="{{ project.image | relative_url }}" alt="{{ project.title }}" class="project-image">
-                {% endif %}
-                <div class="project-content">
-                    <h3 class="project-title">{{ project.title }}</h3>
-                    <div class="project-description">{{ project.description }}</div>
-                    <div class="project-tags">
-                        {% for tag in project.tags %}
-                        <span>{{ tag }}</span>
                         {% endfor %}
                     </div>
                     <a href="{{ project.url | relative_url }}" class="project-link">View Project</a>

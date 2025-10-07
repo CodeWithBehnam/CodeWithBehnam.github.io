@@ -1,15 +1,52 @@
-theme: jekyll-theme-minimal
+# Theme Settings
+remote_theme: mmistakes/minimal-mistakes
+minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+
+# Site Settings
 title: Code With Behnam
+title_separator: "-"
+subtitle: "Data Science & Programming Blog"
 description: A personal blog where I share my knowledge and experiences in programming, data science, and web development
 author: Behnam Ebrahimi
 baseurl: ""
 url: "https://CodeWithBehnam.github.io"
-github_username: CodeWithBehnam
-linkedin_username: behnam-ebrahimi-7b417473
+repository: "CodeWithBehnam/CodeWithBehnam.github.io"
+logo: "/assets/images/favicon.png"
+
+# Site Author
+author:
+  name: "Behnam Ebrahimi"
+  avatar: "/assets/images/favicon.png"
+  bio: "Data Scientist & Software Developer passionate about Python, Machine Learning, and Data Visualization"
+  location: "Los Angeles, CA"
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/CodeWithBehnam"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://linkedin.com/in/behnam-ebrahimi-7b417473"
+
+# Site Footer
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/CodeWithBehnam"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://linkedin.com/in/behnam-ebrahimi-7b417473"
 
 # Site settings
 lang: en
 timezone: America/Los_Angeles
+
+# Reading Files
+include:
+  - .htaccess
+  - _pages
+encoding: "utf-8"
+markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
 # Build settings
 markdown: kramdown
@@ -19,9 +56,41 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
   - jekyll-sitemap
+  - jekyll-include-cache
 
-paginate: 5
-paginate_path: "/blog/page:num/"
+# Outputting
+permalink: /:categories/:title/
+paginate: 10
+paginate_path: /blog/page:num/
+timezone: America/Los_Angeles
+
+# Plugins (previously gems:)
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-include-cache
+
+# mimic GitHub Pages with --safe
+whitelist:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-feed
+  - jekyll-include-cache
+
+# Archives
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
+
+# HTML Compression
+compress_html:
+  clippings: all
+  ignore:
+    envs: development
 
 # Collections
 collections:
@@ -31,21 +100,34 @@ collections:
 
 # Defaults
 defaults:
+  # _posts
   - scope:
       path: ""
-      type: "posts"
+      type: posts
     values:
-      layout: "post"
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+      toc: true
+      toc_sticky: true
+  # _pages
+  - scope:
+      path: "_pages"
+      type: pages
+    values:
+      layout: single
+      author_profile: true
+  # _projects
   - scope:
       path: ""
-      type: "projects"
+      type: projects
     values:
-      layout: "project"
-  - scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "page"
+      layout: single
+      author_profile: false
+      share: true
 
 # Exclude from processing
 exclude:
@@ -55,15 +137,23 @@ exclude:
   - vendor
   - README.md
   - LICENSE
-
-# Site taxonomy
-tag_dir: tags
-category_dir: categories
-
-# Plugin settings
-safe: false
-whitelist:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-paginate
-  - jekyll-sitemap
+  - "*.sublime-project"
+  - "*.sublime-workspace"
+  - vendor
+  - .asset-cache
+  - .bundle
+  - .jekyll-assets-cache
+  - .sass-cache
+  - assets/js/plugins
+  - assets/js/_main.js
+  - assets/js/vendor
+  - Capfile
+  - CHANGELOG
+  - config
+  - Gruntfile.js
+  - gulpfile.js
+  - log
+  - node_modules
+  - package.json
+  - Rakefile
+  - tmp
