@@ -1,0 +1,20 @@
+{% comment %}
+  Generate search index JSON for client-side search
+  This will be included in the page to make posts searchable
+{% endcomment %}
+<script type="application/json" id="search-index">
+[
+  {% for post in site.posts %}
+  {
+    "title": {{ post.title | jsonify }},
+    "url": {{ post.url | relative_url | jsonify }},
+    "excerpt": {{ post.excerpt | strip_html | strip_newlines | truncate: 200 | jsonify }},
+    "content": {{ post.content | strip_html | strip_newlines | jsonify }},
+    "date": {{ post.date | date_to_xmlschema | jsonify }},
+    "categories": {{ post.categories | jsonify }},
+    "tags": {{ post.tags | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]
+</script>
+

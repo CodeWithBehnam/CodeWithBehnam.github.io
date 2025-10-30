@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupArticleReadingProgress();
     setupTOCHighlighting();
     setupSocialSharing();
+    setupSearch();
 });
 
 // Create scroll progress bar
@@ -369,5 +370,234 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     animatedElements.forEach((element) => {
         element.style.opacity = '1';
         element.style.transform = 'none';
+    });
+}
+
+// Search functionality
+function setupSearch() {
+    const searchModal = document.getElementById('search-modal');
+    const searchTrigger = document.querySelector('[data-search-trigger]');
+    const searchClose = document.querySelectorAll('[data-search-close]');
+    const searchInput = document.getElementById('search-input');
+    const searchResults = document.getElementById('search-results');
+    const searchEmpty = document.getElementById('search-empty');
+    
+    if (!searchModal || !searchTrigger || !searchInput) return;
+
+    // Get search index
+    const searchIndexElement = document.getElementById('search-index');
+    if (!searchIndexElement) return;
+    
+    let searchIndex = [];
+    try {
+        searchIndex = JSON.parse(searchIndexElement.textContent);
+    } catch (err) {
+        console.error('Failed to parse search index:', err);
+        return;
+    }
+
+    let selectedIndex = -1;
+    let currentResults = [];
+
+    // Open search modal
+    function openSearch() {
+        searchModal.classList.add('is-open');
+        searchModal.setAttribute('aria-hidden', 'false');
+        searchInput.focus();
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Close search modal
+    function closeSearch() {
+        searchModal.classList.remove('is-open');
+        searchModal.setAttribute('aria-hidden', 'true');
+        searchInput.value = '';
+        searchResults.innerHTML = '';
+        searchEmpty.style.display = 'none';
+        selectedIndex = -1;
+        document.body.style.overflow = '';
+    }
+
+    // Highlight search terms in text
+    function highlightText(text, query) {
+        if (!query) return text;
+        const regex = new RegExp(`(${query})`, 'gi');
+        return text.replace(regex, '<mark>$1</mark>');
+    }
+
+    // Perform search
+    function performSearch(query) {
+        if (!query || query.length < 2) {
+            searchResults.innerHTML = '';
+            searchEmpty.style.display = 'none';
+            return;
+        }
+
+        const queryLower = query.toLowerCase();
+        const terms = queryLower.split(/\s+/).filter(term => term.length > 0);
+        
+        currentResults = searchIndex
+            .map(post => {
+                let score = 0;
+                const titleLower = post.title.toLowerCase();
+                const excerptLower = (post.excerpt || '').toLowerCase();
+                const contentLower = (post.content || '').toLowerCase();
+                const tagsLower = (post.tags || []).join(' ').toLowerCase();
+                const categoriesLower = (post.categories || []).join(' ').toLowerCase();
+
+                terms.forEach(term => {
+                    // Title matches get highest score
+                    if (titleLower.includes(term)) score += 10;
+                    // Exact title match gets bonus
+                    if (titleLower === term) score += 5;
+                    
+                    // Tags and categories
+                    if (tagsLower.includes(term)) score += 5;
+                    if (categoriesLower.includes(term)) score += 5;
+                    
+                    // Excerpt matches
+                    if (excerptLower.includes(term)) score += 3;
+                    
+                    // Content matches
+                    if (contentLower.includes(term)) score += 1;
+                });
+
+                return { post, score };
+            })
+            .filter(item => item.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 10)
+            .map(item => item.post);
+
+        displayResults(currentResults, query);
+    }
+
+    // Display search results
+    function displayResults(results, query) {
+        if (results.length === 0) {
+            searchResults.innerHTML = '';
+            searchEmpty.style.display = 'block';
+            return;
+        }
+
+        searchEmpty.style.display = 'none';
+        searchResults.innerHTML = results.map((post, index) => {
+            const title = highlightText(post.title, query);
+            const excerpt = highlightText(post.excerpt || '', query);
+            const date = new Date(post.date).toLocaleDateString('en-GB', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+            
+            return `
+                <a href="${post.url}" class="search-result" role="option" data-index="${index}" aria-selected="false">
+                    <h3 class="search-result__title">${title}</h3>
+                    <div class="search-result__meta">
+                        <time>${date}</time>
+                        ${post.categories && post.categories.length > 0 ? `<span>• ${post.categories[0]}</span>` : ''}
+                    </div>
+                    <p class="search-result__excerpt">${excerpt}</p>
+                    ${post.tags && post.tags.length > 0 ? `
+                        <div class="search-result__tags">
+                            ${post.tags.slice(0, 3).map(tag => `<span>${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                </a>
+            `;
+        }).join('');
+
+        // Reset selection
+        selectedIndex = -1;
+        updateSelection();
+    }
+
+    // Update selected result
+    function updateSelection() {
+        const resultElements = searchResults.querySelectorAll('.search-result');
+        resultElements.forEach((el, index) => {
+            if (index === selectedIndex) {
+                el.classList.add('is-selected');
+                el.setAttribute('aria-selected', 'true');
+                el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            } else {
+                el.classList.remove('is-selected');
+                el.setAttribute('aria-selected', 'false');
+            }
+        });
+    }
+
+    // Navigate results with keyboard
+    function navigateResults(direction) {
+        const resultElements = searchResults.querySelectorAll('.search-result');
+        if (resultElements.length === 0) return;
+
+        if (direction === 'down') {
+            selectedIndex = (selectedIndex + 1) % resultElements.length;
+        } else if (direction === 'up') {
+            selectedIndex = selectedIndex <= 0 ? resultElements.length - 1 : selectedIndex - 1;
+        }
+
+        updateSelection();
+    }
+
+    // Select current result
+    function selectResult() {
+        if (selectedIndex >= 0 && currentResults[selectedIndex]) {
+            window.location.href = currentResults[selectedIndex].url;
+        } else if (currentResults.length > 0) {
+            window.location.href = currentResults[0].url;
+        }
+    }
+
+    // Event listeners
+    searchTrigger.addEventListener('click', openSearch);
+
+    searchClose.forEach(btn => {
+        btn.addEventListener('click', closeSearch);
+    });
+
+    searchInput.addEventListener('input', (e) => {
+        performSearch(e.target.value);
+    });
+
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            navigateResults('down');
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            navigateResults('up');
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            selectResult();
+        } else if (e.key === 'Escape') {
+            closeSearch();
+        }
+    });
+
+    // Keyboard shortcut (Cmd/Ctrl + K)
+    document.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+            e.preventDefault();
+            openSearch();
+        }
+    });
+
+    // Close on overlay click
+    searchModal.addEventListener('click', (e) => {
+        if (e.target === searchModal || e.target.classList.contains('search-modal__overlay')) {
+            closeSearch();
+        }
+    });
+
+    // Track search analytics (optional)
+    searchResults.addEventListener('click', (e) => {
+        const result = e.target.closest('.search-result');
+        if (result) {
+            const index = parseInt(result.getAttribute('data-index'));
+            // You can add analytics tracking here
+            // console.log('Search result clicked:', currentResults[index]?.title);
+        }
     });
 }

@@ -1,0 +1,37 @@
+<div class="search-modal" id="search-modal" aria-hidden="true" role="dialog" aria-labelledby="search-modal-title">
+  <div class="search-modal__overlay" data-search-close></div>
+  <div class="search-modal__content">
+    <div class="search-modal__header">
+      <h2 id="search-modal-title" class="search-modal__title">Search</h2>
+      <button class="search-modal__close" type="button" data-search-close aria-label="Close search">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="search-modal__body">
+      <div class="search-input-wrapper">
+        <input 
+          type="search" 
+          id="search-input" 
+          class="search-input" 
+          placeholder="Search posts, tags, categories..." 
+          autocomplete="off"
+          aria-label="Search input"
+          aria-describedby="search-hint"
+        >
+        <span class="search-input__icon" aria-hidden="true">🔍</span>
+        <div id="search-hint" class="search-hint">
+          Press <kbd>Esc</kbd> to close • <kbd>↑</kbd><kbd>↓</kbd> to navigate • <kbd>Enter</kbd> to select
+        </div>
+      </div>
+      <div id="search-results" class="search-results" role="listbox" aria-label="Search results"></div>
+      <div id="search-empty" class="search-empty" aria-live="polite" aria-atomic="true" style="display: none;">
+        <div class="empty-state">
+          <div class="empty-state__icon" aria-hidden="true">🔍</div>
+          <h3 class="empty-state__title">No results found</h3>
+          <p class="empty-state__message">Try adjusting your search terms or browse by category or tag.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

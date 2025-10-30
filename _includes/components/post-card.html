@@ -7,7 +7,15 @@
 <article class="card post-card" data-component="post-card">
   <header class="post-card__header">
     {% if include.post.image %}
-      <img src="{{ include.post.image | relative_url }}" alt="{{ include.post.title }}" class="post-card__featured-image" loading="lazy">
+      <img 
+        src="{{ include.post.image | relative_url }}" 
+        alt="{{ include.post.title }}" 
+        class="post-card__featured-image" 
+        loading="lazy" 
+        decoding="async"
+        width="800"
+        height="450"
+      >
     {% endif %}
     <p class="post-card__meta">
       <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: '%d %b %Y' }}</time>

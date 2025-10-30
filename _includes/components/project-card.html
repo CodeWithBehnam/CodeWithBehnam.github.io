@@ -1,6 +1,13 @@
 <article class="card project-card" data-component="project-card">
   <div class="project-card__media">
-    <img src="{{ include.project.image | relative_url }}" alt="{{ include.project.title }} project snapshot">
+    <img 
+      src="{{ include.project.image | relative_url }}" 
+      alt="{{ include.project.title }} project snapshot"
+      loading="lazy"
+      decoding="async"
+      width="800"
+      height="450"
+    >
   </div>
   <div class="project-card__body">
     <h3 class="project-card__title">
