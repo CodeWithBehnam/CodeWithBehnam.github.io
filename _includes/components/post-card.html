@@ -6,13 +6,16 @@
 
 <article class="card post-card" data-component="post-card">
   <header class="post-card__header">
+    {% if include.post.image %}
+      <img src="{{ include.post.image | relative_url }}" alt="{{ include.post.title }}" class="post-card__featured-image" loading="lazy">
+    {% endif %}
     <p class="post-card__meta">
       <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: '%d %b %Y' }}</time>
       <span aria-hidden="true">·</span>
       <span>{{ minutes }} min read</span>
     </p>
     <h3 class="post-card__title">
-      <a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a>
+      <a href="{{ include.post.url | relative_url }}" aria-label="Read article: {{ include.post.title }}">{{ include.post.title }}</a>
     </h3>
   </header>
 
@@ -21,13 +24,13 @@
   {% if include.post.tags %}
     <ul class="post-card__tags" aria-label="Tags">
       {% for tag in include.post.tags limit:3 %}
-        <li><a href="{{ '/tags/' | append: tag | slugify | append: '/' | relative_url }}">{{ tag }}</a></li>
+        <li><a href="{{ '/tags/' | append: tag | slugify | append: '/' | relative_url }}" aria-label="View posts tagged {{ tag }}">{{ tag }}</a></li>
       {% endfor %}
     </ul>
   {% endif %}
 
   <footer class="post-card__footer">
-    <a class="post-card__cta" href="{{ include.post.url | relative_url }}">Read</a>
+    <a class="post-card__cta" href="{{ include.post.url | relative_url }}" aria-label="Read full article: {{ include.post.title }}">Read<span class="sr-only"> {{ include.post.title }}</span></a>
   </footer>
 </article>
 

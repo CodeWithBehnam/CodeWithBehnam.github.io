@@ -1,0 +1,22 @@
+{% if page.categories or page.title %}
+<nav aria-label="Breadcrumb" class="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb__item">
+      <a href="{{ '/' | relative_url }}" class="breadcrumb__link">Home</a>
+    </li>
+    {% if page.categories and page.categories.size > 0 %}
+      {% for category in page.categories %}
+        <li class="breadcrumb__item">
+          <a href="{{ '/categories/' | append: category | slugify | append: '/' | relative_url }}" class="breadcrumb__link">{{ category }}</a>
+        </li>
+      {% endfor %}
+    {% endif %}
+    {% if page.title and page.url != '/' %}
+      <li class="breadcrumb__item" aria-current="page">
+        <span>{{ page.title }}</span>
+      </li>
+    {% endif %}
+  </ol>
+</nav>
+{% endif %}
+
