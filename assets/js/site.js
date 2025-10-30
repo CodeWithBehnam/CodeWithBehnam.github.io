@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupHeaderScroll();
     setupArticleReadingProgress();
     setupTOCHighlighting();
+    setupSocialSharing();
 });
 
 // Create scroll progress bar
@@ -300,5 +301,73 @@ function setupTOCHighlighting() {
 
     headings.forEach(heading => {
         observer.observe(heading);
+    });
+}
+
+// Social sharing functionality
+function setupSocialSharing() {
+    // Copy link functionality
+    const copyButtons = document.querySelectorAll('[data-share-url]');
+    copyButtons.forEach(button => {
+        button.addEventListener('click', async () => {
+            const url = button.getAttribute('data-share-url');
+            try {
+                await navigator.clipboard.writeText(url);
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = url;
+                textArea.style.position = 'fixed';
+                textArea.style.opacity = '0';
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    button.classList.add('copied');
+                    setTimeout(() => {
+                        button.classList.remove('copied');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy:', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        });
+    });
+
+    // Native share API
+    const nativeShareButtons = document.querySelectorAll('[data-share-title]');
+    nativeShareButtons.forEach(button => {
+        if (navigator.share) {
+            button.style.display = 'block';
+            button.addEventListener('click', async () => {
+                try {
+                    await navigator.share({
+                        title: button.getAttribute('data-share-title'),
+                        url: button.getAttribute('data-share-url'),
+                        text: button.getAttribute('data-share-text') || ''
+                    });
+                } catch (err) {
+                    if (err.name !== 'AbortError') {
+                        console.error('Error sharing:', err);
+                    }
+                }
+            });
+        } else {
+            button.style.display = 'none';
+        }
+    });
+}
+
+// Respect reduced motion preference for scroll reveals
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const animatedElements = document.querySelectorAll('.post-card, .project-card, .home-hero, .page__header, .article__header');
+    animatedElements.forEach((element) => {
+        element.style.opacity = '1';
+        element.style.transform = 'none';
     });
 }
