@@ -1,0 +1,22 @@
+{% assign featured_posts = site.posts | slice: 0, 4 %}
+
+<section class="home-section home-section--posts" aria-labelledby="recent-writing">
+  <div class="shell">
+    <header class="stack stack--gap-sm">
+      <p class="eyebrow">Latest writing</p>
+      <h2 id="recent-writing" class="section-title">Fresh from the notebooks</h2>
+      <p class="section-subtitle">Production lessons, analytical deep dives, and failure reports published most recently.</p>
+    </header>
+
+    <div class="post-grid">
+      {% for post in featured_posts %}
+        {% include components/post-card.html post=post %}
+      {% endfor %}
+    </div>
+
+    <div class="section-footer">
+      <a class="btn btn--ghost" href="{{ '/blog/' | relative_url }}">Browse the full index</a>
+    </div>
+  </div>
+</section>
+

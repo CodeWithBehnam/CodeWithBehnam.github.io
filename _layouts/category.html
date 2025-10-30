@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+{% assign category_posts = site.categories[page.category] | default: [] %}
+
+<section class="listing listing--category" data-component="category-archive">
+  <div class="shell listing__inner">
+    <header class="stack stack--gap-sm listing__header">
+      <p class="eyebrow">Category</p>
+      <h1 class="section-title">{{ page.category }}</h1>
+      <p class="section-subtitle">Articles curated under the {{ page.category }} discipline.</p>
+    </header>
+
+    <div class="listing__grid post-grid">
+      {% for post in category_posts %}
+        {% include components/post-card.html post=post %}
+      {% endfor %}
+    </div>
+
+    <div class="section-footer">
+      <a class="btn btn--ghost" href="{{ '/categories/' | relative_url }}">Browse all categories</a>
+    </div>
+  </div>
+</section>
+

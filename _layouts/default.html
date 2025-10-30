@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}" data-site>
+  <head>
+    {% include head.html %}
+  </head>
+  {% assign body_classes = page.classes %}
+  <body class="layout-{{ page.layout | default: 'default' }}{% if body_classes %} {{ body_classes }}{% endif %}">
+    <a class="skip-link" href="#site-main">Skip to main content</a>
+
+    {% include header.html %}
+
+    <main id="site-main" class="site-main" role="main">
+      {{ content }}
+    </main>
+
+    {% include footer.html %}
+
+    <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
+  </body>
+</html>
+

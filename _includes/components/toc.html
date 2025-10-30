@@ -1,0 +1,9 @@
+{% if page.toc and page.toc != '' %}
+  <nav class="article-toc" aria-label="Table of contents">
+    <h2 class="article-toc__title">On this page</h2>
+    <div class="article-toc__body">
+      {{ page.toc }}
+    </div>
+  </nav>
+{% endif %}
+

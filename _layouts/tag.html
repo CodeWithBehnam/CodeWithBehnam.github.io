@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+{% assign tag_posts = site.tags[page.tag] | default: [] %}
+
+<section class="listing listing--tag" data-component="tag-archive">
+  <div class="shell listing__inner">
+    <header class="stack stack--gap-sm listing__header">
+      <p class="eyebrow">Tag</p>
+      <h1 class="section-title">{{ page.tag }}</h1>
+      <p class="section-subtitle">Signals, snippets, and discussions filed under {{ page.tag }}.</p>
+    </header>
+
+    <div class="listing__grid post-grid">
+      {% for post in tag_posts %}
+        {% include components/post-card.html post=post %}
+      {% endfor %}
+    </div>
+
+    <div class="section-footer">
+      <a class="btn btn--ghost" href="{{ '/tags/' | relative_url }}">Browse all tags</a>
+    </div>
+  </div>
+</section>
+

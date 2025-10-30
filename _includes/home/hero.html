@@ -1,0 +1,62 @@
+{% assign total_posts = site.posts | size %}
+{% assign total_categories = site.categories | size %}
+
+{% assign total_words = 0 %}
+{% for entry in site.posts %}
+  {% assign total_words = total_words | plus: (entry.content | append: '' | number_of_words) %}
+{% endfor %}
+{% if total_posts > 0 %}
+  {% assign average_words = total_words | divided_by: total_posts %}
+  {% assign average_minutes = average_words | divided_by: 220 %}
+  {% if average_minutes < 1 %}
+    {% assign average_minutes = 1 %}
+  {% endif %}
+{% else %}
+  {% assign average_minutes = 0 %}
+{% endif %}
+
+{% assign current_year = site.time | date: '%Y' | plus: 0 %}
+{% assign earliest_post = site.posts | last %}
+{% if earliest_post %}
+  {% assign earliest_year = earliest_post.date | date: '%Y' | plus: 0 %}
+  {% assign years_active = current_year | minus: earliest_year | plus: 1 %}
+{% else %}
+  {% assign years_active = 0 %}
+{% endif %}
+
+<section class="home-hero" data-component="hero">
+  <div class="shell home-hero__inner">
+    <div class="stack stack--gap-md">
+      <p class="eyebrow">{{ site.subtitle }}</p>
+      <h1 class="display">Technical rigour with story-driven analysis.</h1>
+      <p class="lead">I interrogate data systems, distil engineering lessons, and document production-grade analytics patterns. Expect candid retrospectives, reproducible walkthroughs, and the occasional war story from shipping platforms at scale.</p>
+
+      <div class="home-hero__cta">
+        <a class="btn" href="{{ '/blog/' | relative_url }}">Read the latest essays</a>
+        <a class="btn btn--ghost" href="{{ '/projects/' | relative_url }}">Audit the side projects</a>
+      </div>
+    </div>
+
+    <div class="home-hero__meta">
+      <dl>
+        <div>
+          <dt>Posts published</dt>
+          <dd>{{ total_posts }}</dd>
+        </div>
+        <div>
+          <dt>Disciplines covered</dt>
+          <dd>{{ total_categories }}</dd>
+        </div>
+        <div>
+          <dt>Average reading time</dt>
+          <dd>{% if average_minutes > 0 %}~{{ average_minutes }} min{% else %}—{% endif %}</dd>
+        </div>
+        <div>
+          <dt>Years documenting</dt>
+          <dd>{% if years_active > 0 %}{{ years_active }}{% else %}—{% endif %}</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+

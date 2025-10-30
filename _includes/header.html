@@ -1,0 +1,46 @@
+<header class="global-header" data-component="masthead">
+  <div class="shell global-header__inner">
+    <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
+      {% if site.logo %}
+        <img class="brand__mark" src="{{ site.logo | relative_url }}" alt="" role="presentation">
+      {% endif %}
+      <span class="brand__text">{{ site.title }}</span>
+      {% if site.subtitle %}
+        <span class="brand__descriptor">{{ site.subtitle }}</span>
+      {% endif %}
+    </a>
+
+    <div class="global-header__controls">
+      <button class="theme-switch" type="button" data-theme-toggle aria-label="Toggle colour theme">
+        <span class="theme-switch__icon" aria-hidden="true"></span>
+        <span class="theme-switch__label">Theme</span>
+      </button>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-controls="primary-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
+    </div>
+
+    <nav id="primary-nav" class="primary-nav" aria-label="Primary">
+      <ul class="primary-nav__list">
+        {% assign current_path = page.url | replace:'index.html','' %}
+        {% for item in site.data.navigation.main %}
+          {% assign item_url = item.url | relative_url %}
+          {% assign normalised_item = item.url | remove:'index.html' %}
+          {% assign is_current = false %}
+          {% if current_path == (normalised_item | append: '') %}
+            {% assign is_current = true %}
+          {% elsif current_path != '/' and current_path contains normalised_item and normalised_item != '/' %}
+            {% assign is_current = true %}
+          {% endif %}
+          <li class="primary-nav__item">
+            <a class="primary-nav__link" href="{{ item_url }}" {% if is_current %}aria-current="page"{% endif %}>{{ item.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>
+

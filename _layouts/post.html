@@ -1,0 +1,112 @@
+---
+layout: default
+---
+
+{% assign reading_words = content | append: '' | number_of_words %}
+{% assign reading_minutes = reading_words | divided_by: 220 %}
+{% if reading_minutes < 1 %}
+  {% assign reading_minutes = 1 %}
+{% endif %}
+
+<article class="article" data-component="article">
+  <header class="article__header stack stack--gap-sm">
+    {% if page.categories and page.categories.size > 0 %}
+      <p class="eyebrow">{{ page.categories | join: ' · ' }}</p>
+    {% endif %}
+    <h1 class="article__title">{{ page.title }}</h1>
+    {% if page.excerpt %}
+      <p class="article__lede">{{ page.excerpt | strip_html | strip_newlines }}</p>
+    {% endif %}
+
+    <dl class="article__meta">
+      <div>
+        <dt>Published</dt>
+        <dd><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%d %B %Y' }}</time></dd>
+      </div>
+      {% if page.author %}
+        <div>
+          <dt>Author</dt>
+          <dd>{{ page.author }}</dd>
+        </div>
+      {% endif %}
+      <div>
+        <dt>Reading time</dt>
+        <dd>~{{ reading_minutes }} min</dd>
+      </div>
+      {% if page.tags and page.tags.size > 0 %}
+        <div>
+          <dt>Keywords</dt>
+          <dd>{{ page.tags | join: ' · ' }}</dd>
+        </div>
+      {% endif %}
+    </dl>
+  </header>
+
+  <div class="article__layout">
+    <aside class="article__sidebar">
+      {% include components/toc.html %}
+      <div class="article-share">
+        <h2 class="article-share__title">Share</h2>
+        <ul>
+          <li><a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url }}{{ page.url | relative_url }}" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+          <li><a href="https://www.linkedin.com/sharing/share-offsite/?url={{ site.url }}{{ page.url | relative_url }}" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          <li><a href="https://mastodon.social/share?text={{ page.title | url_encode }}%20{{ site.url }}{{ page.url | relative_url }}" target="_blank" rel="noopener noreferrer">Mastodon</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <div class="article__content" id="article-content">
+      {{ content }}
+    </div>
+  </div>
+
+  {% if page.tags and page.tags.size > 0 %}
+    <div class="article__tags" aria-label="Tags">
+      {% for tag in page.tags %}
+        <a href="{{ '/tags/' | append: tag | slugify | append: '/' | relative_url }}">#{{ tag }}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <nav class="article__pagination" aria-label="Post navigation">
+    {% if page.previous %}
+      <a class="article__pagination--prev" href="{{ page.previous.url | relative_url }}">
+        <span class="article__pagination-label">Previous</span>
+        <span class="article__pagination-title">{{ page.previous.title }}</span>
+      </a>
+    {% endif %}
+
+    {% if page.next %}
+      <a class="article__pagination--next" href="{{ page.next.url | relative_url }}">
+        <span class="article__pagination-label">Next</span>
+        <span class="article__pagination-title">{{ page.next.title }}</span>
+      </a>
+    {% endif %}
+  </nav>
+
+  {% assign related_max = 3 %}
+  {% assign related_counter = 0 %}
+  <section class="article__related" aria-labelledby="related-heading">
+    <h2 id="related-heading" class="section-title">Related essays</h2>
+    <div class="post-grid">
+      {% for candidate in site.posts %}
+        {% if candidate.url != page.url %}
+          {% assign overlapping = 0 %}
+          {% for tag in candidate.tags %}
+            {% if page.tags contains tag %}
+              {% assign overlapping = overlapping | plus: 1 %}
+            {% endif %}
+          {% endfor %}
+          {% if overlapping > 0 %}
+            {% include components/post-card.html post=candidate %}
+            {% assign related_counter = related_counter | plus: 1 %}
+          {% endif %}
+        {% endif %}
+        {% if related_counter >= related_max %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+</article>
+

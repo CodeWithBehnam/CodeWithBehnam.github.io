@@ -1,0 +1,23 @@
+{% assign projects = site.data.projects | default: [] %}
+{% if projects and projects.size > 0 %}
+  <section class="home-section home-section--projects" aria-labelledby="projects-heading">
+    <div class="shell">
+      <header class="stack stack--gap-sm">
+        <p class="eyebrow">Experiments & tooling</p>
+        <h2 id="projects-heading" class="section-title">Projects in the lab</h2>
+        <p class="section-subtitle">Interactive builds and data-heavy prototypes that underpin the essays.</p>
+      </header>
+
+      <div class="project-grid">
+        {% for project in projects %}
+          {% include components/project-card.html project=project %}
+        {% endfor %}
+      </div>
+
+      <div class="section-footer">
+        <a class="btn btn--ghost" href="{{ '/projects/' | relative_url }}">View all projects</a>
+      </div>
+    </div>
+  </section>
+{% endif %}
+

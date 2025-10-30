@@ -1,0 +1,25 @@
+{% assign categories = site.categories | sort %}
+
+<section class="home-section home-section--topics" aria-labelledby="topics-heading">
+  <div class="shell">
+    <header class="stack stack--gap-sm">
+      <p class="eyebrow">Knowledge base</p>
+      <h2 id="topics-heading" class="section-title">Explore the disciplines</h2>
+      <p class="section-subtitle">Curated themes spanning analytics, engineering, and data operations.</p>
+    </header>
+
+    <ul class="topic-grid" role="list">
+      {% for category in categories limit:6 %}
+        {% assign title = category[0] %}
+        {% assign posts = category[1] %}
+        <li class="topic-pill">
+          <a href="{{ '/categories/' | append: title | slugify | append: '/' | relative_url }}">
+            <span class="topic-pill__name">{{ title }}</span>
+            <span class="topic-pill__count">{{ posts | size }} posts</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+

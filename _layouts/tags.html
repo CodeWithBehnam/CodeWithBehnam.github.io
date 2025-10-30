@@ -1,0 +1,33 @@
+---
+layout: default
+---
+
+{% assign tags = site.tags | sort %}
+
+<section class="taxonomy-index taxonomy-index--tags" data-component="tags">
+  <div class="shell">
+    <header class="stack stack--gap-sm">
+      <p class="eyebrow">Taxonomy</p>
+      <h1 class="section-title">{{ page.title }}</h1>
+      {% if page.description %}
+        <p class="section-subtitle">{{ page.description }}</p>
+      {% else %}
+        <p class="section-subtitle">Navigate topical clusters aligned to specific tools, libraries, and analytical frameworks.</p>
+      {% endif %}
+    </header>
+
+    <ul class="tag-cloud" role="list">
+      {% for tag in tags %}
+        {% assign name = tag[0] %}
+        {% assign posts = tag[1] %}
+        <li>
+          <a class="tag-chip" href="{{ '/tags/' | append: name | slugify | append: '/' | relative_url }}">
+            <span class="tag-chip__name">{{ name }}</span>
+            <span class="tag-chip__count">{{ posts | size }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+

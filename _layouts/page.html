@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+<section class="page" data-component="page">
+  <div class="shell page__inner">
+    <header class="stack stack--gap-sm page__header">
+      <p class="eyebrow">{{ page.eyebrow | default: 'Notebook' }}</p>
+      <h1 class="page__title">{{ page.title }}</h1>
+      {% if page.subtitle %}
+        <p class="page__subtitle">{{ page.subtitle }}</p>
+      {% endif %}
+    </header>
+
+    <div class="page__content">
+      {{ content }}
+    </div>
+  </div>
+</section>
+

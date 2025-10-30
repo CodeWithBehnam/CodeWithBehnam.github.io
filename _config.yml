@@ -119,7 +119,7 @@ defaults:
       path: "_pages"
       type: pages
     values:
-      layout: single
+      layout: page
       author_profile: true
   # _projects
   - scope:

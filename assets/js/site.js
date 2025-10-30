@@ -1,16 +1,10 @@
 // Modern Blog Interactions
 
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // Add scroll progress bar
     createScrollProgress();
-    
-    // Add smooth reveal animations for cards
     addScrollAnimations();
-    
-    // Mobile menu toggle
-    setupMobileMenu();
-    
+    setupNavigationToggle();
+    initialiseThemeToggle();
 });
 
 // Create scroll progress bar
@@ -28,7 +22,7 @@ function createScrollProgress() {
 
 // Add scroll reveal animations
 function addScrollAnimations() {
-    const cards = document.querySelectorAll('.post-card, .project-card, .hero, .page-header, .post-header');
+    const cards = document.querySelectorAll('.post-card, .project-card, .home-hero, .page__header, .article__header');
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
@@ -51,55 +45,71 @@ function addScrollAnimations() {
     });
 }
 
-// Mobile menu setup
-function setupMobileMenu() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const siteNav = document.querySelector('.site-nav');
-    
-    if (menuToggle && siteNav) {
-        menuToggle.addEventListener('click', () => {
-            siteNav.classList.toggle('active');
-            const isOpen = siteNav.classList.contains('active');
-            menuToggle.setAttribute('aria-expanded', isOpen);
-        });
-    }
-}
+// Navigation toggle
+function setupNavigationToggle() {
+    const toggle = document.querySelector('[data-nav-toggle]');
+    const primaryNav = document.getElementById('primary-nav');
 
-// Add particle effect to hero on mouse move
-const hero = document.querySelector('.hero');
-if (hero) {
-    hero.addEventListener('mousemove', (e) => {
-        const rect = hero.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const particle = document.createElement('div');
-        particle.style.position = 'absolute';
-        particle.style.left = x + 'px';
-        particle.style.top = y + 'px';
-        particle.style.width = '4px';
-        particle.style.height = '4px';
-        particle.style.borderRadius = '50%';
-        particle.style.background = 'linear-gradient(135deg, #6366f1, #ec4899)';
-        particle.style.pointerEvents = 'none';
-        particle.style.opacity = '0.6';
-        particle.style.animation = 'fadeOut 1s ease-out forwards';
-        
-        hero.style.position = 'relative';
-        hero.appendChild(particle);
-        
-        setTimeout(() => particle.remove(), 1000);
+    if (!toggle || !primaryNav) {
+        return;
+    }
+
+    const OPEN_CLASS = 'is-open';
+
+    function closeNav() {
+        primaryNav.classList.remove(OPEN_CLASS);
+        toggle.classList.remove(OPEN_CLASS);
+        toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    function openNav() {
+        primaryNav.classList.add(OPEN_CLASS);
+        toggle.classList.add(OPEN_CLASS);
+        toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    toggle.addEventListener('click', () => {
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+            closeNav();
+        } else {
+            openNav();
+        }
+    });
+
+    document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!primaryNav.contains(target) && !toggle.contains(target)) {
+            closeNav();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeNav();
+            toggle.focus();
+        }
     });
 }
 
-// Add keyframe animation for particle fade out
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fadeOut {
-        to {
-            opacity: 0;
-            transform: scale(0);
-        }
+// Theme toggle stub
+function initialiseThemeToggle() {
+    const toggle = document.querySelector('[data-theme-toggle]');
+    if (!toggle) {
+        return;
     }
-`;
-document.head.appendChild(style);
+
+    toggle.addEventListener('click', () => {
+        document.documentElement.classList.toggle('theme-dark');
+        toggle.setAttribute('aria-pressed', document.documentElement.classList.contains('theme-dark'));
+    });
+}
+
+// Respect reduced motion preference for scroll reveals
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const animatedElements = document.querySelectorAll('.post-card, .project-card, .home-hero, .page__header, .article__header');
+    animatedElements.forEach((element) => {
+        element.style.opacity = '1';
+        element.style.transform = 'none';
+    });
+}

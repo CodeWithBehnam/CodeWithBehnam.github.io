@@ -1,0 +1,33 @@
+<footer class="global-footer" data-component="site-footer">
+  <div class="shell global-footer__inner">
+    <div class="global-footer__meta">
+      <p class="global-footer__title">{{ site.title }}</p>
+      {% if site.description %}
+        <p class="global-footer__summary">{{ site.description }}</p>
+      {% endif %}
+    </div>
+
+    <div class="global-footer__legal">
+      <p>&copy; {{ site.time | date: '%Y' }} {{ site.author }}. Crafted with Jekyll and meticulously curated content.</p>
+      <p class="global-footer__copyright">
+        <span>Published on {{ site.url | replace: 'https://', '' }}</span>
+      </p>
+    </div>
+
+    {% if site.footer.links %}
+      <nav class="global-footer__social" aria-label="Social channels">
+        <ul>
+          {% for link in site.footer.links %}
+            <li>
+              <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="global-footer__social-link">
+                <span class="global-footer__social-icon {{ link.icon }}" aria-hidden="true"></span>
+                <span class="sr-only">{{ link.label }}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
+  </div>
+</footer>
+
