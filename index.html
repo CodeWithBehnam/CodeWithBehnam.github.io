@@ -5,7 +5,97 @@ header:
   overlay_color: "#2c3e50"
   overlay_filter: "0.5"
   actions:
-    - label: "View All Posts"
+    - label: "Read the Blog"
       url: "/blog/"
-excerpt: "A personal blog on programming, data science, and web development. Sharing knowledge and experiences in Python, Machine Learning, SQL, Power BI, and more."
---- 
+excerpt: "Guides, battle stories, and experiments in AI, ML, analytics, and the tooling that keeps them alive in production."
+focus_areas:
+  - title: "AI & Automation"
+    description: "Multi-agent copilots, RAG pipelines, guardrails, and everything that can go sideways when LLMs hit real users."
+    url: "/categories/#ai"
+    action: "Explore AI posts"
+  - title: "Machine Learning Craft"
+    description: "Feature stores, monitoring, hyperparameter tuning, and interpretable models that business partners trust."
+    url: "/categories/#machine-learning"
+    action: "See ML content"
+  - title: "Analytics & Data Apps"
+    description: "Dashboards, SQL, Power BI, and data storytelling techniques that turn chaos into decisions."
+    url: "/categories/#data-visualization"
+    action: "Browse analytics tips"
+resource_cards:
+  - title: "Start with the Blog"
+    description: "Browse every story chronologically or filter by tags when you need something specific."
+    url: "/blog/"
+    action: "View archive"
+  - title: "Projects & Playbooks"
+    description: "Reusable notebooks, Power BI dashboards, and open-source experiments that back every post."
+    url: "/projects/"
+    action: "Open projects"
+  - title: "Topic Maps"
+    description: "Jump into curated category and tag pages to see everything written about a stack or domain."
+    url: "/categories/"
+    action: "Map the content"
+---
+
+Welcome to **Code With Behnam**, a notebook of hard-earned lessons from building analytics platforms, shipping ML systems, and coaching teams through the tooling hype-cycle. The blog used to feel like a single-track diary; now it acts as a living guidebook for anyone navigating AI + data work end to end.
+
+Whether you're wrangling SQL, instrumenting LLM guardrails, or debugging dashboards five minutes before a board review, you'll find practical walkthroughs, failure post-mortems, and ready-to-steal snippets here.
+
+## What You'll Find
+
+<div class="grid__wrapper">
+  {% for area in page.focus_areas %}
+  <div class="grid__item">
+    <div class="card">
+      <h3>{{ area.title }}</h3>
+      <p>{{ area.description }}</p>
+      <p><a class="btn btn--primary btn--small" href="{{ area.url | relative_url }}">{{ area.action }}</a></p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+## Latest Field Notes
+
+<ul class="post-list">
+  {% for post in site.posts limit:5 %}
+  <li class="post-list__item">
+    <article>
+      <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+      <p class="page__meta">
+        <span>{{ post.date | date: "%B %d, %Y" }}</span> ·
+        {% if post.categories.size > 0 %}
+        <span>
+          {{ post.categories | array_to_sentence_string }}
+        </span>
+        {% endif %}
+      </p>
+      <p>{{ post.excerpt | strip_html | truncate: 200 }}</p>
+      <p><a class="btn btn--small" href="{{ post.url | relative_url }}">Keep reading →</a></p>
+    </article>
+  </li>
+  {% endfor %}
+</ul>
+
+Need a bigger backlog? [Head to the blog index]({{ "/blog/" | relative_url }}) for everything in chronological order.
+
+## Curated Resources
+
+<div class="grid__wrapper">
+  {% for card in page.resource_cards %}
+  <div class="grid__item">
+    <div class="card">
+      <h3>{{ card.title }}</h3>
+      <p>{{ card.description }}</p>
+      <p><a class="btn btn--primary btn--small" href="{{ card.url | relative_url }}">{{ card.action }}</a></p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+## Stay in the Loop
+
+- Follow the conversation on [LinkedIn](https://linkedin.com/in/behnam-ebrahimi-7b417473) for bite-sized breakdowns and behind-the-scenes experiments.
+- Watch the [projects section]({{ "/projects/" | relative_url }}) for living documentation of dashboards, notebooks, and automation scripts referenced in posts.
+- Request topics or share your own battle stories by opening an [issue on GitHub](https://github.com/CodeWithBehnam/CodeWithBehnam.github.io/issues/new); community prompts often become the next article.
+
+Let's build reliable, human-friendly data products together. Start with the sections above or just dive into the most recent post—either way, there's plenty to explore.
