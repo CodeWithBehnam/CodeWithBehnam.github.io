@@ -6,6 +6,8 @@
 
 <article class="card post-card" data-component="post-card">
   <header class="post-card__header">
+    {% assign badge = include.post.categories | first | default: 'Field note' %}
+    <p class="post-card__badge">{{ badge }}</p>
     {% if include.post.image %}
       <img 
         src="{{ include.post.image | relative_url }}" 

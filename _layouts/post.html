@@ -10,6 +10,8 @@ layout: default
 
 <article class="article" data-component="article">
   <header class="article__header stack stack--gap-sm">
+    {% assign primary_category = page.categories | first | default: 'Field note' %}
+    <p class="article__sticker">{{ primary_category }}</p>
     {% if page.categories and page.categories.size > 0 %}
       <p class="eyebrow">{{ page.categories | join: ' · ' }}</p>
     {% endif %}
