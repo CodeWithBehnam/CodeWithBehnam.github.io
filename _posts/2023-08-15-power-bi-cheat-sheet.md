@@ -16,6 +16,17 @@ Power BI is Microsoft's powerful business intelligence tool for data visualizati
 - [Data Modeling Best Practices](#data-modeling-best-practices)
 - [Visualization Tips](#visualization-tips)
 - [Performance Optimization](#performance-optimization)
+- [Common DAX Patterns](#common-dax-patterns)
+- [Publishing and Sharing](#publishing-and-sharing)
+- [Quick Tips](#quick-tips)
+- [Common Errors and Solutions](#common-errors-and-solutions)
+- [Resources](#resources)
+- [Machine Learning Integration](#machine-learning-integration)
+- [Python and R Scripting](#python-and-r-scripting)
+- [Advanced Analytics Visuals](#advanced-analytics-visuals)
+- [Time Series Forecasting](#time-series-forecasting)
+- [Anomaly Detection and Alerts](#anomaly-detection-and-alerts)
+- [Conclusion](#conclusion)
 
 ## DAX Functions
 
@@ -619,6 +630,72 @@ RETURN
 - **DAX Guide**: [dax.guide](https://dax.guide)
 - **Community**: [community.powerbi.com](https://community.powerbi.com)
 - **Training**: [Microsoft Learn Power BI](https://learn.microsoft.com/training/powerplatform/power-bi)
+
+## Machine Learning Integration
+
+- **AutoML in Dataflows**: In the dataflow editor, select *Add ML model*, choose the target column, and let AutoML train classification or regression models; review accuracy reports before enabling scheduled refresh.
+- **Azure ML Integration**: Use the *Azure Machine Learning* connector to score datasets with deployed models; store the endpoint URL and key securely in parameters.
+- **AI Insights in Power BI Desktop**: Apply *Text Analytics* and *Vision* functions (Sentiment, Key Phrase Extraction, Language Detection) from the Transform tab when connected to Premium or PPU capacity.
+- **Cognitive Services with Synapse Link**: Push large datasets to Azure Synapse via Synapse Link and call Cognitive Services for richer feature engineering before re-importing results.
+- **Data Privacy Considerations**: Set proper data privacy levels (Organizational vs. Public) to avoid query folding being disabled during ML transformations.
+
+## Python and R Scripting
+
+- **Enable Scripts**: Go to *File > Options and settings > Options > Security* and enable Python and R scripting; point to local interpreters under *Python scripting* or *R scripting*.
+- **Recommended Packages**: Keep `pandas`, `numpy`, `scikit-learn`, and `matplotlib` updated for Python; use `tidyverse`, `forecast`, and `ggplot2` for R.
+- **Passing Data**: Power BI sends the dataset to a dataframe named `dataset`; avoid returning more than 150k rows for smooth visuals.
+- **Sample Python Visualization**
+
+```python
+# dataset: Power BI dataframe
+import pandas as pd
+import seaborn as sns
+
+numeric = dataset.select_dtypes(include="number")
+corr = numeric.corr()
+sns.heatmap(corr, annot=True, cmap="viridis")
+```
+
+- **Deployment Tip**: Install the same libraries on the Power BI gateway machine to refresh Python/R visuals in the service.
+
+## Advanced Analytics Visuals
+
+| Visual | Use Case | Quick Setup Steps |
+|--------|----------|-------------------|
+| Key Influencers | Explain drivers of a metric | Add categorical and numeric explanatory fields; enable *Top segments* to surface cohorts. |
+| Decomposition Tree | Drill into root causes | Set the *Analyze* field, add dimensions for *Explain by*, and sort by *High to Low* for impact analysis. |
+| Smart Narrative | Auto-generated insights | Select multiple visuals, then insert Smart Narrative to create editable textual summaries. |
+| Q&A Visual | Natural language queries | Teach synonyms in the Q&A setup and use *Suggest questions* for end users. |
+| Azure Maps | Advanced geospatial analysis | Use latitude/longitude columns and layer reference boundaries for clustering. |
+
+- **Tip**: When using AI visuals on Premium/PPU, monitor capacity metrics to ensure they remain responsive on large datasets.
+
+## Time Series Forecasting
+
+- **Built-in Forecast**: On a line chart, enable *Forecast* under the Analytics pane; set *Confidence interval* (default 95%), *Forecast length*, and *Seasonality* (auto-detect or manual).
+- **Preprocessing**: Ensure the date column is continuous (no gaps), sort ascending, and aggregate to the appropriate grain (daily, weekly, monthly).
+- **Custom DAX Forecast**
+
+```dax
+12M Forecast = 
+VAR GrowthRate = 0.05
+RETURN
+    CALCULATE(
+        [Total Sales] * (1 + GrowthRate),
+        DATEADD('Date'[Date], 12, MONTH)
+    )
+```
+
+- **Evaluation**: Compare forecast vs. actual with KPI visuals and add slicers to stress-test scenarios.
+- **Seasonal Models**: For complex seasonality, export to Python/R scripts with `prophet` or `forecast` packages and re-import the results as a table.
+
+## Anomaly Detection and Alerts
+
+- **Anomaly Detection**: Insert a line chart, enable *Find anomalies* in the Analytics pane, choose a sensitivity level, and review the explanation tooltips.
+- **Data Alerts**: In the Power BI service, pin a visual to a dashboard and create an alert with thresholds and frequency (hourly/daily) to notify teams.
+- **Metrics Hub**: Use Metrics (formerly Goals) to track KPIs, define status rules, and assign owners for automated follow-up.
+- **Monitoring**: Combine anomaly flags with measure-based conditional formatting to highlight outliers directly in tables or matrices.
+- **Automation**: Connect alerts to Power Automate flows for escalations, ticket creation, or Teams notifications.
 
 ## Conclusion
 
