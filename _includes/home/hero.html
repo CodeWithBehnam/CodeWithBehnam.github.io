@@ -26,36 +26,60 @@
 
 <section class="home-hero" data-component="hero">
   <div class="shell home-hero__inner">
-    <div class="stack stack--gap-md">
-      <p class="eyebrow">{{ site.subtitle }}</p>
-      <h1 class="display">Technical rigour with story-driven analysis.</h1>
-      <p class="lead">I interrogate data systems, distil engineering lessons, and document production-grade analytics patterns. Expect candid retrospectives, reproducible walkthroughs, and the occasional war story from shipping platforms at scale.</p>
+    <div class="home-hero__content stack stack--gap-lg">
+      <div class="stack stack--gap-sm">
+        <p class="eyebrow">{{ site.subtitle }}</p>
+        <h1 class="display">Technical rigour with story-driven analysis.</h1>
+        <p class="lead">I interrogate data systems, distil engineering lessons, and document production-grade analytics patterns. Expect candid retrospectives, reproducible walkthroughs, and the occasional war story from shipping platforms at scale.</p>
+      </div>
 
       <div class="home-hero__cta">
-        <a class="btn" href="{{ '/blog/' | relative_url }}">Read the latest essays</a>
-        <a class="btn btn--ghost" href="{{ '/projects/' | relative_url }}">Audit the side projects</a>
+        <a class="btn" href="{{ '/blog/' | relative_url }}">View the latest post</a>
+        <a class="btn btn--ghost" href="{{ '/categories/' | relative_url }}">Browse categories</a>
       </div>
+
+      <ul class="hero-pill-list" role="list">
+        {% for area in page.focus_areas %}
+          <li class="hero-pill">
+            <span class="hero-pill__label">{{ area.title }}</span>
+            <span class="hero-pill__action">{{ area.action }}</span>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
 
-    <div class="home-hero__meta">
-      <dl>
-        <div>
-          <dt>Posts published</dt>
-          <dd>{{ total_posts }}</dd>
+    <div class="home-hero__highlight">
+      <div class="home-hero__highlight-inner">
+        <div class="hero-stat">
+          <p class="hero-stat__label">Posts published</p>
+          <p class="hero-stat__value">{{ total_posts }}</p>
         </div>
-        <div>
-          <dt>Disciplines covered</dt>
-          <dd>{{ total_categories }}</dd>
+        <div class="hero-stat">
+          <p class="hero-stat__label">Disciplines covered</p>
+          <p class="hero-stat__value">{{ total_categories }}</p>
         </div>
-        <div>
-          <dt>Average reading time</dt>
-          <dd>{% if average_minutes > 0 %}~{{ average_minutes }} min{% else %}—{% endif %}</dd>
+        <div class="hero-stat">
+          <p class="hero-stat__label">Avg. reading time</p>
+          <p class="hero-stat__value">{% if average_minutes > 0 %}~{{ average_minutes }} min{% else %}—{% endif %}</p>
         </div>
-        <div>
-          <dt>Years documenting</dt>
-          <dd>{% if years_active > 0 %}{{ years_active }}{% else %}—{% endif %}</dd>
+        <div class="hero-stat">
+          <p class="hero-stat__label">Years documenting</p>
+          <p class="hero-stat__value">{% if years_active > 0 %}{{ years_active }}{% else %}—{% endif %}</p>
         </div>
-      </dl>
+
+        <div class="hero-spotlight">
+          <p class="hero-spotlight__eyebrow">Signal boost</p>
+          <p class="hero-spotlight__title">Latest field note</p>
+          {% assign latest_post = site.posts | first %}
+          {% if latest_post %}
+            <a class="hero-spotlight__link" href="{{ latest_post.url | relative_url }}">
+              {{ latest_post.title }} →
+            </a>
+          {% else %}
+            <p class="hero-spotlight__placeholder">New essay coming soon.</p>
+          {% endif %}
+        </div>
+      </div>
     </div>
   </div>
 </section>

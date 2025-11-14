@@ -46,7 +46,7 @@ function setupHeaderScroll() {
 
 // Add scroll reveal animations
 function addScrollAnimations() {
-    const cards = document.querySelectorAll('.post-card, .project-card, .home-hero, .page__header, .article__header');
+    const cards = document.querySelectorAll('.post-card, .project-card, .home-hero, .latest-card, .focus-card, .resource-card, .section-header, .page__header, .article__header');
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
