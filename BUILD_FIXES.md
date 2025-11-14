@@ -19,13 +19,13 @@ All pages now use correct Minimal Mistakes layouts:
 
 ### 2. **Fixed Liquid Syntax Errors**
 
-#### a. **index.html - Removed orphaned `{% endfor %}` tags**
+#### a. **index.html - Removed orphaned `{% raw %}{% endfor %}{% endraw %}` tags**
 - Cleaned up leftover code from old template
-- Removed dangling liquid tags that had no matching `{% for %}`
+- Removed dangling liquid tags that had no matching `{% raw %}{% for %}{% endraw %}`
 
 #### b. **Power BI Post - Fixed double curly braces in code blocks**
 - Added `{% raw %}` and `{% endraw %}` tags around M code blocks
-- This prevents Liquid from trying to interpret `{{"OldName", "NewName"}}` as Liquid syntax
+- This prevents Liquid from trying to interpret `{% raw %}{{"OldName", "NewName"}}{% endraw %}` as Liquid syntax
 - Now the code displays correctly without parsing errors
 
 **File Fixed:**
@@ -61,12 +61,7 @@ Build should complete successfully in 1-2 minutes! ✨
 ## 📝 Notes
 
 ### About `{% raw %}` Tags
-When you have code blocks that contain double curly braces `{{}}` or Liquid-like syntax, wrap them in:
-```liquid
-{% raw %}
-your code here
-{% endraw %}
-```
+When you have code blocks that contain double curly braces `{{}}` or Liquid-like syntax, wrap them in `{% raw %}...{% endraw %}`.
 
 This tells Jekyll to not process that content as Liquid template code.
 
