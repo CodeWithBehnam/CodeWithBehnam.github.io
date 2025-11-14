@@ -32,17 +32,17 @@
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css" integrity="sha512-drOTzjRvWmvMRGsiE9zraFMvx6bMpiKFFitvolG/GpNZgbf+168Q5e0siJmq9hw3rroWAt4EvsC0BpvyEukgqA==" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js" integrity="sha512-bgHRAiTjGrzHzLyKOnpFvaEpGzJet3z4tZnXGjpsCcqOnAH6VGUx9frc5bcIhKTVLEiCO6vEhNAgx5jtLUYrfA==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 <script>
+  function initHighlighting() {
+    if (typeof hljs === 'undefined') return;
+    hljs.configure({ ignoreUnescapedHTML: true });
+    hljs.highlightAll();
+  }
+
   // Defer syntax highlighting until after initial render
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof hljs !== 'undefined') {
-        hljs.highlightAll();
-      }
-    });
+    document.addEventListener('DOMContentLoaded', initHighlighting);
   } else {
-    if (typeof hljs !== 'undefined') {
-      hljs.highlightAll();
-    }
+    initHighlighting();
   }
 </script>
 
