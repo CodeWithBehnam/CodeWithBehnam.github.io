@@ -11,12 +11,12 @@ author: Behnam Ebrahimi
 baseurl: ""
 url: "https://CodeWithBehnam.github.io"
 repository: "CodeWithBehnam/CodeWithBehnam.github.io"
-logo: "/assets/images/favicon.png"
+logo: "/assets/images/logo-mark.svg"
 
 # Site Author
 author:
   name: "Behnam Ebrahimi"
-  avatar: "/assets/images/favicon.png"
+  avatar: "/assets/images/logo-mark.svg"
   bio: "Data Scientist & Software Developer passionate about Python, Machine Learning, and Data Visualization"
   location: "Los Angeles, CA"
   links:

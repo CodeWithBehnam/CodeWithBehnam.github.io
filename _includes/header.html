@@ -2,7 +2,7 @@
   <div class="shell global-header__inner">
     <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
       {% if site.logo %}
-        <img class="brand__mark" src="{{ site.logo | relative_url }}" alt="" role="presentation">
+        <img class="brand__mark" src="{{ site.logo | relative_url }}" alt="{{ site.title }} mark" width="42" height="42" decoding="async">
       {% endif %}
       <span class="brand__text">{{ site.title }}</span>
       {% if site.subtitle %}

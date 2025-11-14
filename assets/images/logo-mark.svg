@@ -1,0 +1,16 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="brandGradient" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4545FF"/>
+      <stop offset="100%" stop-color="#D9368A"/>
+    </linearGradient>
+    <linearGradient id="brandHighlight" x1="20" y1="14" x2="44" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="16" fill="url(#brandGradient)"/>
+  <rect x="8" y="8" width="48" height="48" rx="14" fill="url(#brandHighlight)" opacity="0.3"/>
+  <path d="M24 18H36.5C42.851 18 48 22.808 48 30C48 37.192 42.851 42 36.5 42H30V48H24V18ZM36 36C38.978 36 41 34.049 41 30.5C41 26.951 38.978 25 36 25H30V36H36Z" fill="#FFFFFF"/>
+</svg>
+
