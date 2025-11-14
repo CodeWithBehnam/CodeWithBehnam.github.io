@@ -9,7 +9,7 @@
     </div>
 
     <div class="global-footer__legal">
-      <p>&copy; {{ site.time | date: '%Y' }} {{ site.author }}. Crafted with Jekyll and meticulously curated content.</p>
+      <p>&copy; {{ site.time | date: '%Y' }} {% if site.author.name %}{{ site.author.name }}{% else %}{{ site.author }}{% endif %}. Crafted with Jekyll and meticulously curated content.</p>
       <p class="global-footer__copyright">
         <span>Published on {{ site.url | replace: 'https://', '' }}</span>
       </p>
