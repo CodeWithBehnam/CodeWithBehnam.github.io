@@ -25,61 +25,92 @@
 {% endif %}
 
 <section class="home-hero" data-component="hero">
-  <div class="shell home-hero__inner">
-    <div class="home-hero__content stack stack--gap-lg">
-      <div class="stack stack--gap-sm">
-        <p class="eyebrow">{{ site.subtitle }}</p>
-        <h1 class="display">Technical rigour with story-driven analysis.</h1>
-        <p class="lead">I interrogate data systems, distil engineering lessons, and document production-grade analytics patterns. Expect candid retrospectives, reproducible walkthroughs, and the occasional war story from shipping platforms at scale.</p>
+  <div class="shell">
+    <div class="home-hero__inner">
+      <div class="home-hero__body stack stack--gap-lg">
+        <div class="hero-heading stack stack--gap-sm">
+          <span class="hero-badge">Data science dispatches</span>
+          <h1 class="display">Technical rigour with story-driven analysis.</h1>
+          <p class="lead">I interrogate data systems, distil engineering lessons, and document production-grade analytics patterns. Expect candid retrospectives, reproducible walkthroughs, and the occasional war story from shipping platforms at scale.</p>
+        </div>
+
+        <div class="hero-note">
+          <span class="hero-note__label">Currently shipping</span>
+          <p class="hero-note__value">
+            <strong>{{ total_posts }}</strong> essays ·
+            <strong>{{ total_categories }}</strong> disciplines ·
+            {% if average_minutes > 0 %}
+              <strong>~{{ average_minutes }} min</strong> avg read
+            {% else %}
+              — avg read
+            {% endif %}
+          </p>
+        </div>
+
+        <div class="home-hero__cta">
+          <a class="btn" href="{{ '/blog/' | relative_url }}">View the latest post</a>
+          <a class="btn btn--ghost" href="{{ '/categories/' | relative_url }}">Browse categories</a>
+        </div>
+
+        <div class="hero-focus">
+          <div class="hero-focus__heading">
+            <p class="hero-focus__label">Active threads</p>
+            <span class="hero-focus__hint">Hand-picked systems, ML, and data apps</span>
+          </div>
+          <ul class="hero-focus__list" role="list">
+            {% for area in page.focus_areas %}
+              <li class="hero-focus__item">
+                <span class="hero-focus__title">{{ area.title }}</span>
+                <span class="hero-focus__meta">{{ area.action }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
 
-      <div class="home-hero__cta">
-        <a class="btn" href="{{ '/blog/' | relative_url }}">View the latest post</a>
-        <a class="btn btn--ghost" href="{{ '/categories/' | relative_url }}">Browse categories</a>
-      </div>
+      <aside class="home-hero__panel">
+        <div class="hero-panel">
+          <div class="hero-panel__header">
+            <p class="hero-panel__eyebrow">Signal boost</p>
+            <p class="hero-panel__title">Field-tested lessons & observability notes</p>
+          </div>
 
-      <ul class="hero-pill-list" role="list">
-        {% for area in page.focus_areas %}
-          <li class="hero-pill">
-            <span class="hero-pill__label">{{ area.title }}</span>
-            <span class="hero-pill__action">{{ area.action }}</span>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+          <div class="hero-panel__stats">
+            <div class="hero-panel__stat">
+              <span class="hero-panel__stat-label">Posts</span>
+              <span class="hero-panel__stat-value">{{ total_posts }}</span>
+            </div>
+            <div class="hero-panel__stat">
+              <span class="hero-panel__stat-label">Disciplines</span>
+              <span class="hero-panel__stat-value">{{ total_categories }}</span>
+            </div>
+            <div class="hero-panel__stat">
+              <span class="hero-panel__stat-label">Avg. read</span>
+              <span class="hero-panel__stat-value">{% if average_minutes > 0 %}~{{ average_minutes }}m{% else %}—{% endif %}</span>
+            </div>
+            <div class="hero-panel__stat">
+              <span class="hero-panel__stat-label">Years</span>
+              <span class="hero-panel__stat-value">{% if years_active > 0 %}{{ years_active }}{% else %}—{% endif %}</span>
+            </div>
+          </div>
 
-    <div class="home-hero__highlight">
-      <div class="home-hero__highlight-inner">
-        <div class="hero-stat">
-          <p class="hero-stat__label">Posts published</p>
-          <p class="hero-stat__value">{{ total_posts }}</p>
-        </div>
-        <div class="hero-stat">
-          <p class="hero-stat__label">Disciplines covered</p>
-          <p class="hero-stat__value">{{ total_categories }}</p>
-        </div>
-        <div class="hero-stat">
-          <p class="hero-stat__label">Avg. reading time</p>
-          <p class="hero-stat__value">{% if average_minutes > 0 %}~{{ average_minutes }} min{% else %}—{% endif %}</p>
-        </div>
-        <div class="hero-stat">
-          <p class="hero-stat__label">Years documenting</p>
-          <p class="hero-stat__value">{% if years_active > 0 %}{{ years_active }}{% else %}—{% endif %}</p>
-        </div>
+          <div class="hero-panel__divider" aria-hidden="true"></div>
 
-        <div class="hero-spotlight">
-          <p class="hero-spotlight__eyebrow">Signal boost</p>
-          <p class="hero-spotlight__title">Latest field note</p>
-          {% assign latest_post = site.posts | first %}
-          {% if latest_post %}
-            <a class="hero-spotlight__link" href="{{ latest_post.url | relative_url }}">
-              {{ latest_post.title }} →
-            </a>
-          {% else %}
-            <p class="hero-spotlight__placeholder">New essay coming soon.</p>
-          {% endif %}
+          <div class="hero-panel__spotlight">
+            {% assign latest_post = site.posts | first %}
+            {% if latest_post %}
+              <p class="hero-spotlight__eyebrow">Latest field note</p>
+              <p class="hero-spotlight__title">{{ latest_post.title }}</p>
+              <a class="hero-spotlight__link" href="{{ latest_post.url | relative_url }}">
+                Read the dispatch →
+              </a>
+            {% else %}
+              <p class="hero-spotlight__eyebrow">Signal boost</p>
+              <p class="hero-spotlight__placeholder">New essay coming soon.</p>
+            {% endif %}
+          </div>
         </div>
-      </div>
+      </aside>
     </div>
   </div>
 </section>
