@@ -1,106 +1,63 @@
 # Code With Behnam
 
-Source for my GitHub Pages website and blog: https://codewithbehnam.github.io/
+Source for [codewithbehnam.github.io](https://codewithbehnam.github.io/).
 
-This site is where I publish writing on healthcare BI, analytics engineering, Power BI, SQL, data products, dashboards, and applied AI. It combines long-form posts, lightweight project pages, and profile content into a single Jekyll site.
+The site is built with Jekyll on top of the [`al-folio`](https://github.com/alshedivat/al-folio) theme and adapted into a simpler professional portfolio/blog for Behnam Ebrahimi.
 
-## What This Repo Contains
+## Focus
 
-- personal website content
-- blog posts under [`_posts/`](_posts)
-- standalone pages under [`_pages/`](_pages)
-- project data under [`_data/projects.yml`](_data/projects.yml)
-- Jekyll configuration in [`_config.yml`](_config.yml)
-- custom styling and scripts in [`assets/`](assets)
+- healthcare BI
+- analytics engineering
+- Power BI, DAX, and SQL
+- dashboards and decision support
+- practical AI and automation
 
-## Stack
+## Structure
 
-- Jekyll
-- GitHub Pages
-- Minimal Mistakes theme
-- custom CSS and JavaScript
-
-## Main Sections
-
-- `Home`: landing page and featured content
-- `Writing`: full post archive
-- `Projects`: selected work and experiments
-- `Categories`: broad topic map
-- `Tags`: narrower topic navigation
-- `About`: personal profile and links
+- `_pages/about.md`: homepage and profile copy
+- `_pages/blog.md`: writing archive
+- `_pages/projects.md`: selected project index
+- `_posts/`: long-form writing
+- `_projects/`: project entries rendered by the theme
+- `_data/socials.yml`: public social links
+- `_config.yml`: site metadata and theme settings
+- `_sass/_custom.scss`: local UI overrides on top of al-folio
 
 ## Local Development
 
-### 1. Install dependencies
+Install dependencies:
 
 ```bash
 bundle install
 ```
 
-### 2. Run the site locally
+Run the site:
 
 ```bash
 bundle exec jekyll serve
 ```
 
-Then open:
+Open `http://localhost:4000`.
 
-```text
-http://localhost:4000
-```
-
-### 3. Production-style build
+Production build:
 
 ```bash
 bundle exec jekyll build
 ```
 
-The generated site will be written to `_site/`.
+## Deployment
 
-## Content Workflow
+The repository deploys through GitHub Actions using `.github/workflows/deploy.yml`.
 
-### Add a new post
+The workflow builds the site, purges unused CSS, and publishes `_site/` to GitHub Pages.
 
-Create a Markdown file in `_posts/` using the standard Jekyll naming format:
+## Content Notes
 
-```text
-YYYY-MM-DD-post-title.md
-```
-
-Include front matter such as:
-
-```yaml
----
-layout: post
-title: "Your Post Title"
-date: 2026-04-19
-categories: [Analytics, Power BI]
-tags: [powerbi, sql, dashboard]
----
-```
-
-### Update page content
-
-- site pages live in `_pages/`
-- navigation is controlled in `_data/navigation.yml`
-- global metadata lives in `_config.yml`
-
-## Repo Metadata
-
-This repository is intended to present well both as a codebase and as the source behind the live site, so the README, About page, repo description, homepage URL, and topics should stay aligned.
-
-Recommended public links:
-
-- Website: https://codewithbehnam.github.io/
-- GitHub profile: https://github.com/CodeWithBehnam
-- LinkedIn: https://linkedin.com/in/behnam-ebrahimi-7b417473
-
-## Notes
-
-- this repo is content-first, not app-first
-- GitHub Pages build compatibility matters
-- clean metadata matters because the repo doubles as a public profile asset
+- Keep post front matter clean and consistent.
+- Prefer concise summaries and real examples over filler copy.
+- Project entries should represent actual builds or working artifacts.
+- When site positioning changes, update `_config.yml`, `_pages/about.md`, this README, and the repo metadata together.
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).

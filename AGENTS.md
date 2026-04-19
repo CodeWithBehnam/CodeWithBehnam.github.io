@@ -1,120 +1,75 @@
 # AGENTS.md
 
-Guidance for agents and contributors working in this repository.
+Guidance for contributors and agents working in this repository.
 
 ## Purpose
 
-This repository powers `https://codewithbehnam.github.io/`, a personal Jekyll site focused on:
+This repository powers `https://codewithbehnam.github.io/`, a personal site for Behnam Ebrahimi focused on healthcare BI, analytics engineering, Power BI, SQL, dashboards, and applied AI.
 
-- healthcare BI
-- analytics engineering
-- Power BI and SQL
-- dashboards and data products
-- practical AI
-
-The site should feel professional, restrained, and easy to scan. Avoid over-designed marketing patterns and unnecessary UI chrome.
+The site uses the `al-folio` Jekyll theme, but it should not read like an academic template or a stock demo.
 
 ## Stack
 
 - Jekyll
-- GitHub Pages
-- Minimal Mistakes theme with custom layouts and CSS
+- `al-folio`
+- GitHub Pages via GitHub Actions
 
-Important files:
+Key files:
 
-- `_config.yml`: site metadata and Jekyll config
-- `index.html`: homepage content
-- `_layouts/home.html`: homepage layout wrapper
-- `_includes/home/hero.html`: homepage hero
-- `assets/css/main.css`: main custom styling
-- `_pages/`: top-level pages
-- `_posts/`: blog posts
-- `_data/navigation.yml`: primary nav
+- `_config.yml`: site metadata, theme options, navigation behavior
+- `_pages/about.md`: homepage/profile content
+- `_pages/blog.md`: writing archive
+- `_pages/projects.md`: project listing
+- `_projects/`: project pages and card data
+- `_data/socials.yml`: social links
+- `_sass/_custom.scss`: local UI overrides
+- `.github/workflows/deploy.yml`: deployment pipeline
 
-## Development Rules
-
-### Homepage
-
-The homepage should have a single rendering path.
-
-- `index.html` is the source of truth for homepage sections
-- `_layouts/home.html` should render the hero and then `{{ content }}`
-- do not reintroduce duplicate homepage systems through extra include chains unless there is a clear reason
-
-### UI Direction
+## UI Direction
 
 Prefer:
 
-- calm editorial layout
-- clean typography
-- consistent spacing
-- simple panels and restrained accents
-- obvious hierarchy
+- restrained editorial layout
+- strong typography and spacing
+- minimal chrome
+- clean hierarchy
+- short, direct copy
 
 Avoid:
 
-- noisy gradients
-- gimmicky hero treatments
+- academic filler sections
+- demo/sample content
+- decorative gradients and noisy motion
 - dashboard-card overload
-- decorative labels that do not help orientation
-- duplicated sections with similar content
+- duplicated pages that say the same thing
 
-### Content
+## Content Rules
 
-Posts should include clean front matter:
+- Keep the homepage as the main profile/positioning page.
+- Keep the project list intentionally small and concrete.
+- Use posts for substantial writing, not placeholder notes.
+- If a theme feature is unused, disable it in `_config.yml` instead of building around it.
 
-```yaml
----
-layout: post
-title: "Post title"
-date: YYYY-MM-DD
-categories: [Category]
-tags: [tag-one, tag-two]
----
-```
+## Development
 
-Keep titles readable and professional. Tags and categories should help navigation, not create clutter.
-
-### Metadata
-
-When site positioning changes, keep these aligned:
-
-- `_config.yml`
-- `README.md`
-- About page
-- GitHub repo description, homepage URL, and topics
-
-## Local Development
-
-Typical workflow:
+Typical local workflow:
 
 ```bash
 bundle install
 bundle exec jekyll serve
 ```
 
-Production-style build:
+Production build:
 
 ```bash
 bundle exec jekyll build
 ```
 
-If Ruby or Bundler is missing in the local environment, note that clearly instead of pretending the site was validated.
+If Ruby or Bundler is unavailable, state that clearly instead of claiming the build was verified.
 
-## Cleanup Expectations
+## Maintenance
 
-Remove dead files when they are clearly unused, especially:
-
-- old one-off migration notes
-- duplicate homepage includes
-- empty draft or test content
-- scripts that are not referenced anywhere
-
-Do not remove working site content without checking references first.
-
-## Git
-
-- keep commits focused
-- prefer one clear commit per logical change
-- avoid unrelated formatting churn
-- push to `main` only when the requested work is complete
+- Keep repo metadata aligned with the live site.
+- Remove obsolete content and sample files when they stop serving the site.
+- Preserve working theme runtime files unless you are sure they are dead.
+- Keep commits focused and push only when the requested work is complete.

@@ -1,20 +1,24 @@
 ---
 layout: page
-title: "Projects"
+title: projects
 permalink: /projects/
-author_profile: false
-eyebrow: Workbench
-subtitle: "Side projects and experimental tooling that augment the essays."
+description: Selected experiments, demos, and working artifacts across analytics, frontend exploration, and developer tooling.
+nav: true
+nav_order: 2
+horizontal: true
 ---
 
-<section class="projects-archive" data-component="projects-archive">
-  <div class="stack stack--gap-xl">
-    <p class="lead">Each project explores a practical facet of analytics engineering, data visualisation, or developer tooling. Expect opinionated implementations, exhaustive documentation, and production-minded trade-offs.</p>
+<div class="projects">
+  <p class="mb-4">
+    I keep this collection intentionally small. Each entry represents a concrete build, experiment, or working artifact rather than a placeholder idea.
+  </p>
 
-    <div class="project-grid">
-      {% for project in site.data.projects %}
-        {% include components/project-card.html project=project %}
+  {% assign sorted_projects = site.projects | sort: "importance" %}
+  <div class="container">
+    <div class="row row-cols-1">
+      {% for project in sorted_projects %}
+        {% include projects_horizontal.liquid %}
       {% endfor %}
     </div>
   </div>
-</section>
+</div>
