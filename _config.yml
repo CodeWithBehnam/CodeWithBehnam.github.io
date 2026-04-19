@@ -5,8 +5,8 @@ minimal_mistakes_skin: "air" # Clean, light theme with white background
 # Site Settings
 title: Code With Behnam
 title_separator: "-"
-subtitle: "Data Science & Programming Blog"
-description: A personal blog where I share my knowledge and experiences in programming, data science, and web development
+subtitle: "Healthcare BI, Analytics Engineering, Power BI, SQL, and Applied AI"
+description: Personal website and technical blog for Behnam Ebrahimi covering healthcare BI, analytics engineering, Power BI, SQL, dashboards, data strategy, and applied AI.
 baseurl: ""
 url: "https://CodeWithBehnam.github.io"
 repository: "CodeWithBehnam/CodeWithBehnam.github.io"
@@ -16,12 +16,18 @@ logo: "/assets/images/logo-mark.svg"
 author:
   name: "Behnam Ebrahimi"
   avatar: "/assets/images/logo-mark.svg"
-  bio: "Data Scientist & Software Developer passionate about Python, Machine Learning, and Data Visualization"
-  location: "Los Angeles, CA"
+  bio: "Senior BI analyst in healthcare writing about Power BI, SQL, analytics engineering, data products, and practical AI."
+  location: "United Kingdom"
   links:
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://codewithbehnam.github.io/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/CodeWithBehnam"
+    - label: "Source Repo"
+      icon: "fas fa-fw fa-code-branch"
+      url: "https://github.com/CodeWithBehnam/CodeWithBehnam.github.io"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://linkedin.com/in/behnam-ebrahimi-7b417473"
@@ -29,16 +35,22 @@ author:
 # Site Footer
 footer:
   links:
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: "https://codewithbehnam.github.io/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/CodeWithBehnam"
+    - label: "Source Repo"
+      icon: "fas fa-fw fa-code-branch"
+      url: "https://github.com/CodeWithBehnam/CodeWithBehnam.github.io"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://linkedin.com/in/behnam-ebrahimi-7b417473"
 
 # Site settings
 lang: en
-timezone: America/Los_Angeles
+timezone: Europe/London
 
 # Reading Files
 include:
@@ -47,27 +59,20 @@ include:
 encoding: "utf-8"
 markdown_ext: "markdown,mkdown,mkdn,mkd,md"
 
-# Build settings
-markdown: kramdown
-highlighter: rouge
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-paginate
-  - jekyll-sitemap
-  - jekyll-include-cache
-
 # Outputting
 permalink: /:categories/:title/
 paginate: 10
 paginate_path: /blog/page:num/
-timezone: America/Los_Angeles
+timezone: Europe/London
 
-# Plugins (previously gems:)
+# Build settings
+markdown: kramdown
+highlighter: rouge
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-feed
+  - jekyll-seo-tag
   - jekyll-include-cache
 
 # mimic GitHub Pages with --safe
@@ -75,6 +80,7 @@ whitelist:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-feed
+  - jekyll-seo-tag
   - jekyll-include-cache
 
 # Archives
