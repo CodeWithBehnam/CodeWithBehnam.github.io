@@ -26,93 +26,38 @@
 
 <section class="home-hero" data-component="hero">
   <div class="shell">
-    <div class="home-hero__inner">
+    <div class="home-hero__inner home-hero__inner--simple">
       <div class="home-hero__body stack stack--gap-lg">
         <div class="hero-heading stack stack--gap-sm">
-          <span class="hero-badge">Healthcare BI, analytics engineering, and applied AI</span>
-          <span class="hero-heading__sticker" aria-hidden="true">UK-based</span>
-          <h1 class="display">Practical writing on BI, data products, and analytics systems.</h1>
-          <p class="lead">I write about trusted reporting, Power BI, SQL, dashboards, KPI design, data quality, and the places where modern AI helps or hurts analytical work in practice.</p>
-        </div>
-
-        <div class="hero-note">
-          <span class="hero-note__label">Publishing</span>
-          <p class="hero-note__value">
-            <strong>{{ total_posts }}</strong> essays ·
-            <strong>{{ total_categories }}</strong> disciplines ·
-            {% if average_minutes > 0 %}
-              <strong>~{{ average_minutes }} min</strong> avg read
-            {% else %}
-              — avg read
-            {% endif %}
-          </p>
+          <span class="hero-badge">Behnam Ebrahimi</span>
+          <h1 class="display">Healthcare BI, analytics engineering, and practical AI.</h1>
+          <p class="lead">Clear writing on trusted reporting, Power BI, SQL, dashboards, KPI design, data quality, and the places where AI genuinely helps analytical work.</p>
         </div>
 
         <div class="home-hero__cta">
           <a class="btn" href="{{ '/blog/' | relative_url }}">Read the writing</a>
-          <a class="btn btn--ghost" href="{{ '/categories/' | relative_url }}">Browse topics</a>
+          <a class="btn btn--ghost" href="{{ '/about/' | relative_url }}">About me</a>
         </div>
 
-        <div class="hero-focus">
-          <div class="hero-focus__heading">
-            <p class="hero-focus__label">Focus areas</p>
-            <span class="hero-focus__hint">BI, analytics, data systems, and AI</span>
+        <dl class="home-hero__stats">
+          <div class="home-hero__stat">
+            <dt>Posts</dt>
+            <dd>{{ total_posts }}</dd>
           </div>
-          <ul class="hero-focus__list" role="list">
-            {% for area in page.focus_areas %}
-              <li class="hero-focus__item">
-                <span class="hero-focus__title">{{ area.title }}</span>
-                <span class="hero-focus__meta">{{ area.action }}</span>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
+          <div class="home-hero__stat">
+            <dt>Topics</dt>
+            <dd>{{ total_categories }}</dd>
+          </div>
+          <div class="home-hero__stat">
+            <dt>Avg. read</dt>
+            <dd>{% if average_minutes > 0 %}~{{ average_minutes }} min{% else %}—{% endif %}</dd>
+          </div>
+          <div class="home-hero__stat">
+            <dt>Years writing</dt>
+            <dd>{% if years_active > 0 %}{{ years_active }}{% else %}—{% endif %}</dd>
+          </div>
+        </dl>
       </div>
-
-      <aside class="home-hero__panel">
-        <div class="hero-panel">
-          <div class="hero-panel__header">
-            <span class="hero-panel__badge" aria-hidden="true">Overview</span>
-            <p class="hero-panel__eyebrow">From the site</p>
-            <p class="hero-panel__title">Notes, guides, and field-tested lessons from real analytical work</p>
-          </div>
-
-          <div class="hero-panel__stats">
-            <div class="hero-panel__stat">
-              <span class="hero-panel__stat-label">Posts</span>
-              <span class="hero-panel__stat-value">{{ total_posts }}</span>
-            </div>
-            <div class="hero-panel__stat">
-              <span class="hero-panel__stat-label">Disciplines</span>
-              <span class="hero-panel__stat-value">{{ total_categories }}</span>
-            </div>
-            <div class="hero-panel__stat">
-              <span class="hero-panel__stat-label">Avg. read</span>
-              <span class="hero-panel__stat-value">{% if average_minutes > 0 %}~{{ average_minutes }}m{% else %}—{% endif %}</span>
-            </div>
-            <div class="hero-panel__stat">
-              <span class="hero-panel__stat-label">Years</span>
-              <span class="hero-panel__stat-value">{% if years_active > 0 %}{{ years_active }}{% else %}—{% endif %}</span>
-            </div>
-          </div>
-
-          <div class="hero-panel__divider" aria-hidden="true"></div>
-
-          <div class="hero-panel__spotlight">
-            {% assign latest_post = site.posts | first %}
-            {% if latest_post %}
-              <p class="hero-spotlight__eyebrow">Latest post</p>
-              <p class="hero-spotlight__title">{{ latest_post.title }}</p>
-              <a class="hero-spotlight__link" href="{{ latest_post.url | relative_url }}">
-                Read the article →
-              </a>
-            {% else %}
-              <p class="hero-spotlight__eyebrow">Latest post</p>
-              <p class="hero-spotlight__placeholder">New essay coming soon.</p>
-            {% endif %}
-          </div>
-        </div>
-      </aside>
     </div>
   </div>
 </section>

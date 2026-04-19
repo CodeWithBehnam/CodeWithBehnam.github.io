@@ -81,3 +81,6 @@ build/
 # System files
 .Spotlight-V100
 .Trashes
+
+# Local agent guidance
+AGENTS.md

@@ -1,105 +1,96 @@
 ---
 layout: home
-author_profile: true
-header:
-  overlay_color: "#2c3e50"
-  overlay_filter: "0.5"
-  actions:
-    - label: "Read the Blog"
-      url: "/blog/"
 excerpt: "Guides, battle stories, and experiments in AI, ML, analytics, and the tooling that keeps them alive in production."
 focus_areas:
-  - title: "AI & Automation"
-    description: "Multi-agent copilots, RAG pipelines, guardrails, and everything that can go sideways when LLMs hit real users."
-    url: "/categories/#ai"
-    action: "Explore AI posts"
-  - title: "Machine Learning Craft"
-    description: "Feature stores, monitoring, hyperparameter tuning, and interpretable models that business partners trust."
-    url: "/categories/#machine-learning"
-    action: "See ML content"
-  - title: "Analytics & Data Apps"
-    description: "Dashboards, SQL, Power BI, and data storytelling techniques that turn chaos into decisions."
-    url: "/categories/#data-visualization"
-    action: "Browse analytics tips"
-resource_cards:
-  - title: "Start with the Blog"
-    description: "Browse every story chronologically or filter by tags when you need something specific."
-    url: "/blog/"
-    action: "View archive"
-  - title: "Projects & Playbooks"
-    description: "Reusable notebooks, Power BI dashboards, and open-source experiments that back every post."
-    url: "/projects/"
-    action: "Open projects"
-  - title: "Topic Maps"
-    description: "Jump into curated category and tag pages to see everything written about a stack or domain."
+  - title: "Healthcare BI"
+    description: "Trusted reporting, KPI design, operational insight, and the practical side of decision support."
     url: "/categories/"
-    action: "Map the content"
+    action: "Explore BI topics"
+  - title: "Analytics Engineering"
+    description: "Semantic models, SQL workflows, data quality, and the systems behind reporting that teams rely on."
+    url: "/tags/"
+    action: "Browse technical themes"
+  - title: "Applied AI"
+    description: "Useful AI workflows, failed experiments, and realistic views on where automation helps or hurts."
+    url: "/blog/"
+    action: "Read recent posts"
+entry_points:
+  - title: "Writing Archive"
+    description: "All posts in one place, from practical guides to field notes and retrospectives."
+    url: "/blog/"
+    action: "Browse archive"
+  - title: "Topic Map"
+    description: "Navigate the site by category and find the main themes I write about most."
+    url: "/categories/"
+    action: "View categories"
+  - title: "About"
+    description: "Background, focus areas, and where to find me online."
+    url: "/about/"
+    action: "Read profile"
+  - title: "Source"
+    description: "The GitHub Pages repository that powers this site."
+    url: "https://github.com/CodeWithBehnam/CodeWithBehnam.github.io"
+    action: "Open repo"
 ---
 
-Welcome to **Code With Behnam**, a practical notebook for BI, analytics engineering, dashboards, Power BI, SQL, and applied AI. The goal is simple: publish useful work clearly.
+<section class="home-intro" aria-labelledby="site-overview">
+  <div class="shell">
+    <div class="home-intro__inner">
+      <p class="eyebrow">Site overview</p>
+      <h2 id="site-overview" class="section-title">A cleaner place for practical analytical work.</h2>
+      <p class="section-subtitle">Code With Behnam is a personal site focused on useful writing rather than content overload. The emphasis is on clarity, professional presentation, and work that stays close to real delivery.</p>
+    </div>
+  </div>
+</section>
 
-Whether you're designing KPIs, fixing broken metrics, building semantic models, or figuring out which AI workflows are genuinely worth keeping, the writing here is meant to stay grounded in real delivery.
-
-<section class="home-section" aria-labelledby="focus-areas">
+<section class="home-section home-section--areas" aria-labelledby="focus-areas">
   <div class="shell">
     <header class="section-header">
       <div>
-        <p class="eyebrow">What you'll find</p>
-        <h2 id="focus-areas" class="section-title">Guides across the delivery lifecycle</h2>
+        <p class="eyebrow">What I write about</p>
+        <h2 id="focus-areas" class="section-title">Three core threads</h2>
       </div>
-      <a class="section-header__cta" href="{{ '/categories/' | relative_url }}">Map categories →</a>
+      <a class="section-header__cta" href="{{ '/categories/' | relative_url }}">Browse categories</a>
     </header>
 
-    <div class="focus-grid">
+    <div class="home-areas-grid">
       {% for area in page.focus_areas %}
-        <article class="focus-card">
-          <div class="focus-card__icon" aria-hidden="true">
-            <span class="focus-card__glyph">{% cycle '⚙️','🧠','📊' %}</span>
-          </div>
-          <div class="focus-card__content">
-            <h3>{{ area.title }}</h3>
-            <p>{{ area.description }}</p>
-          </div>
-          <a class="focus-card__action" href="{{ area.url | relative_url }}">{{ area.action }}</a>
+        <article class="home-area">
+          <h3 class="home-area__title">{{ area.title }}</h3>
+          <p class="home-area__description">{{ area.description }}</p>
+          <a class="home-area__link" href="{{ area.url | relative_url }}">{{ area.action }}</a>
         </article>
       {% endfor %}
     </div>
   </div>
 </section>
 
-<section class="home-section" aria-labelledby="latest-field-notes">
+<section class="home-section home-section--writing" aria-labelledby="latest-field-notes">
   <div class="shell">
     <header class="section-header">
       <div>
-        <p class="eyebrow">Latest field notes</p>
+        <p class="eyebrow">Recent writing</p>
         <h2 id="latest-field-notes" class="section-title">Recent writing</h2>
       </div>
-      <a class="section-header__cta" href="{{ '/blog/' | relative_url }}">View archive</a>
+      <a class="section-header__cta" href="{{ '/blog/' | relative_url }}">View all posts</a>
     </header>
 
-    <div class="latest-list">
-      {% for post in site.posts limit:5 %}
+    <div class="home-writing-list">
+      {% for post in site.posts limit:6 %}
         {% assign post_words = post.content | append: '' | number_of_words %}
         {% assign post_minutes = post_words | divided_by: 220 %}
         {% if post_minutes < 1 %}
           {% assign post_minutes = 1 %}
         {% endif %}
-        <article class="latest-card">
-          <div class="latest-card__media">
-            {% if post.header.overlay_image %}
-              <img src="{{ post.header.overlay_image | relative_url }}" alt="{{ post.title }} cover" loading="lazy" decoding="async">
-            {% else %}
-              <div class="latest-card__placeholder" aria-hidden="true"></div>
-            {% endif %}
-          </div>
-          <div class="latest-card__body">
-            <p class="latest-card__meta">
+        <article class="writing-row">
+          <div class="writing-row__main">
+            <p class="writing-row__meta">
               <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%b %d, %Y' }}</time>
-              <span aria-hidden="true">•</span>
-              <span>{{ post_minutes }} min</span>
+              <span aria-hidden="true">·</span>
+              <span>{{ post_minutes }} min read</span>
             </p>
-            <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-            <p>{{ post.excerpt | strip_html | truncate: 160 }}</p>
+            <h3 class="writing-row__title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+            <p class="writing-row__excerpt">{{ post.excerpt | strip_html | truncate: 170 }}</p>
             {% if post.tags %}
               <ul class="content-pill-list" aria-label="Tags">
                 {% for tag in post.tags limit:3 %}
@@ -110,41 +101,30 @@ Whether you're designing KPIs, fixing broken metrics, building semantic models, 
               </ul>
             {% endif %}
           </div>
-          <a class="latest-card__cta" href="{{ post.url | relative_url }}" aria-label="Read {{ post.title }}">Keep reading</a>
+          <a class="writing-row__link" href="{{ post.url | relative_url }}" aria-label="Read {{ post.title }}">Read</a>
         </article>
       {% endfor %}
     </div>
   </div>
 </section>
 
-<section class="home-section" aria-labelledby="curated-resources">
+<section class="home-section home-section--links" aria-labelledby="curated-resources">
   <div class="shell">
     <header class="section-header">
       <div>
-        <p class="eyebrow">Signal vs. noise</p>
-        <h2 id="curated-resources" class="section-title">Useful entry points</h2>
+        <p class="eyebrow">Useful links</p>
+        <h2 id="curated-resources" class="section-title">Best entry points</h2>
       </div>
     </header>
 
-    <div class="resource-strip">
-      {% for card in page.resource_cards %}
-        <article class="resource-card">
-          <div>
-            <p class="resource-card__eyebrow">{{ card.title }}</p>
-            <p class="resource-card__description">{{ card.description }}</p>
-          </div>
-          <a class="resource-card__cta" href="{{ card.url | relative_url }}">{{ card.action }}</a>
+    <div class="home-links-grid">
+      {% for card in page.entry_points %}
+        <article class="home-link">
+          <p class="home-link__eyebrow">{{ card.title }}</p>
+          <p class="home-link__description">{{ card.description }}</p>
+          <a class="home-link__cta" href="{{ card.url | relative_url }}">{{ card.action }}</a>
         </article>
       {% endfor %}
     </div>
   </div>
 </section>
-
-## Stay Connected
-
-- Follow on [LinkedIn](https://linkedin.com/in/behnam-ebrahimi-7b417473) for shorter notes and professional updates.
-- Browse the [projects section]({{ "/projects/" | relative_url }}) for examples, experiments, and supporting work.
-- Visit the site directly at [codewithbehnam.github.io](https://codewithbehnam.github.io/).
-- Suggest topics or share feedback by opening an [issue on GitHub](https://github.com/CodeWithBehnam/CodeWithBehnam.github.io/issues/new).
-
-Start with the sections above or head straight to the latest post.
