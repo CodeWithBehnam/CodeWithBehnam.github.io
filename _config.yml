@@ -14,7 +14,7 @@ footer_text: >
   Selected writing and project work by Behnam Ebrahimi. Built with <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> and <a href="https://github.com/alshedivat/al-folio" target="_blank">al-folio</a>.
 keywords: healthcare BI, analytics engineering, Power BI, SQL, dashboards, applied AI, portfolio
 lang: en-GB # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: favicon.png # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
+icon: site/favicon.png # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
 url: https://codewithbehnam.github.io # the base hostname & protocol for your site
 baseurl: "" # the subpath of your site, e.g. /blog/. Leave blank for root
@@ -362,7 +362,7 @@ imagemagick:
     - 800
     - 1400
   input_directories:
-    - assets/img/
+    - assets/img/site/
   input_formats:
     - ".jpg"
     - ".jpeg"
