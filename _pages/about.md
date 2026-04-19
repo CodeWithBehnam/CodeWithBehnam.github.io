@@ -6,7 +6,7 @@ subtitle: Senior BI analyst in healthcare focused on trusted reporting, analytic
 
 profile:
   align: right
-  image: logo-mark.svg
+  image: profile.jpeg
   image_circular: false
   more_info: >
     <p>Senior BI Analyst</p>
